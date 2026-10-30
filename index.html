@@ -1,0 +1,1296 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>NEO Frankfurt KI-Potenzialanalyse</title>
+<style>
+/* Layout: Bauplan-Logik. Vorteile für Geschäftsführer und Team zuerst, dann Zeitgewinn (klickbar), Organigramm, Kontrolle, Ablauf. Eine Datei, keine externen Ressourcen. */
+:root {
+  --bg: #f3f5f3;
+  --surface: #ffffff;
+  --ink: #15302b;
+  --ink-soft: #4b5f5a;
+  --line: #b9c6c1;
+  --brass: #8a6720;
+  --gain-bg: #f6efe0;
+  --head-bg: #15302b;
+  --head-fg: #f3f5f3;
+  --head-soft: #b7cbc4;
+  --head-gain: #e2c27f;
+  --chip-bg: #e6ece9;
+  --good: #1f7a4d;
+  --benefit: #1f7a4d;
+  --benefit-bg: #e6f2eb;
+  --benefit-fg: #ffffff;
+  --font-display: "Bahnschrift", "DIN Alternate", "Arial Narrow", Arial, sans-serif;
+  --font-body: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
+  --gap: 20px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1a18; --surface: #17241f; --ink: #e4ece8; --ink-soft: #9fb3ac; --line: #3a4f48;
+    --brass: #d9b265; --gain-bg: #2a2a1f; --head-bg: #24413a; --head-fg: #f1f5f3; --head-soft: #a9c2ba;
+    --head-gain: #e2c27f; --chip-bg: #22332e; --good: #7cc4a0;
+    --benefit: #7cc4a0; --benefit-bg: #16302a; --benefit-fg: #0f1a18;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1a18; --surface: #17241f; --ink: #e4ece8; --ink-soft: #9fb3ac; --line: #3a4f48;
+  --brass: #d9b265; --gain-bg: #2a2a1f; --head-bg: #24413a; --head-fg: #f1f5f3; --head-soft: #a9c2ba;
+  --head-gain: #e2c27f; --chip-bg: #22332e; --good: #7cc4a0;
+  --benefit: #7cc4a0; --benefit-bg: #16302a; --benefit-fg: #0f1a18;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 15px; line-height: 1.45;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: calc(96px + env(safe-area-inset-top, 0px)) 56px;
+}
+[hidden] { display: none !important; }
+button { font: inherit; }
+html { scroll-behavior: smooth; }
+[id] { scroll-margin-top: 84px; }
+a, button, [role="button"], tr[tabindex] { -webkit-tap-highlight-color: transparent; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--surface); }
+
+/* Kopfleiste: bleibt immer oben fixiert und wird beim Scrollen kompakter */
+.topbar { position: fixed !important; top: 0 !important; left: 0; right: 0; z-index: 1000; padding-top: env(safe-area-inset-top, 0px); background: var(--surface); border-bottom: 1px solid var(--line); transition: box-shadow .25s ease; -webkit-transform: translateZ(0); transform: translateZ(0); }
+.topbar.scrolled { box-shadow: 0 6px 20px rgba(10, 30, 25, .1); }
+.topbar.scrolled .tb-inner { height: 52px; }
+.tb-inner { transition: height .2s ease; }
+.tb-inner { max-width: 1320px; margin: 0 auto; height: 60px; display: flex; align-items: center; gap: 14px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); flex: none; }
+.brand .mark { background: var(--head-bg); color: var(--head-gain); font: 700 13px var(--font-display); letter-spacing: .06em; padding: 7px 8px; border-radius: 4px; }
+.brand-t { display: grid; font: 700 15px var(--font-display); line-height: 1.1; }
+.brand-t small { font: 500 10px var(--font-mono); text-transform: uppercase; letter-spacing: .07em; color: var(--ink-soft); }
+.brand:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+.tb-nav { display: flex; gap: 2px; margin-left: auto; min-width: 0; }
+.tb-nav a { position: relative; padding: 9px 11px; border-radius: 6px; font: 600 13.5px var(--font-body); color: var(--ink-soft); text-decoration: none; white-space: nowrap; }
+.tb-nav a:hover { color: var(--ink); background: var(--chip-bg); }
+.tb-nav a.active { color: var(--ink); }
+.tb-nav a.active::after { content: ""; position: absolute; left: 11px; right: 11px; bottom: 2px; height: 2px; border-radius: 2px; background: var(--benefit); }
+.tb-nav a:focus-visible, .tb-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.tb-btn { flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink-soft); font: 600 13.5px var(--font-body); cursor: pointer; }
+.tb-btn:hover { color: var(--ink); border-color: var(--ink-soft); }
+.tb-btn svg { width: 17px; height: 17px; flex: none; }
+.tb-btn kbd, .s-foot kbd { font: 500 11px var(--font-mono); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; background: var(--surface); color: var(--ink-soft); }
+.tb-menu { display: none; }
+.mobile-menu { border-top: 1px solid var(--line); background: var(--surface); padding: 8px max(16px, env(safe-area-inset-right, 0px)) 14px max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 2px; max-height: calc(100vh - 60px); overflow: auto; }
+.mobile-menu a { display: flex; justify-content: space-between; align-items: center; padding: 13px 12px; border-radius: 8px; font: 600 15.5px var(--font-body); color: var(--ink); text-decoration: none; }
+.mobile-menu a::after { content: "›"; color: var(--ink-soft); font-size: 20px; line-height: 1; }
+.mobile-menu a.active { background: var(--benefit-bg); color: var(--benefit); }
+.mobile-menu a:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+@media (max-width: 1480px) {
+  .tb-nav a { padding: 9px 8px; font-size: 13px; }
+  .tb-nav a.active::after { left: 8px; right: 8px; }
+  .tb-search span, .tb-search kbd { display: none; }
+  .tb-search { padding: 0 11px; }
+}
+@media (max-width: 1240px) {
+  .tb-nav { display: none; }
+  .tb-menu { display: inline-flex; }
+  .tb-search { margin-left: auto; }
+}
+@media (max-width: 560px) {
+  .tb-search span, .tb-search kbd { display: none; }
+  .tb-search { padding: 0 11px; }
+  .brand-t small { display: none; }
+}
+
+/* Suche */
+dialog.search { width: min(660px, calc(100% - 32px)); max-height: min(620px, 80vh); margin: 10vh auto auto; padding: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); overflow: hidden; box-shadow: 0 24px 60px rgba(10, 30, 25, .25); }
+dialog.search[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+dialog.search::backdrop { background: rgba(10, 20, 18, .5); }
+.s-field { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.s-field svg { width: 20px; height: 20px; color: var(--ink-soft); flex: none; }
+.s-field input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font: 400 17px var(--font-body); padding: 6px 0; }
+.s-field input::placeholder { color: var(--ink-soft); }
+.s-close { flex: none; border: 1px solid var(--line); background: var(--bg); color: var(--ink-soft); border-radius: 6px; padding: 5px 9px; font: 600 12.5px var(--font-body); cursor: pointer; }
+.s-close:focus-visible, .s-results button:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+.s-label { padding: 10px 16px 0; font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); }
+.s-results { list-style: none; margin: 0; padding: 6px 8px 10px; overflow: auto; }
+.s-results button { width: 100%; display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 2px 12px; align-items: start; padding: 10px 12px; border: 0; border-radius: 8px; background: transparent; color: var(--ink); text-align: left; cursor: pointer; font: inherit; }
+.s-results li.cur button, .s-results button:hover { background: var(--benefit-bg); }
+.s-type { grid-row: span 2; justify-self: start; margin-top: 2px; font: 500 10px var(--font-mono); text-transform: uppercase; letter-spacing: .05em; padding: 3px 6px; border-radius: 4px; background: var(--chip-bg); color: var(--ink-soft); }
+.s-type.ai { background: transparent; border: 1px dashed var(--brass); color: var(--brass); }
+.s-type.human { background: var(--head-bg); color: var(--head-fg); }
+.s-title { font-weight: 600; font-size: 15px; }
+.s-snip { font-size: 13px; color: var(--ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.s-results mark { background: var(--gain-bg); color: inherit; border-radius: 2px; padding: 0 1px; }
+.s-empty { padding: 18px 12px; color: var(--ink-soft); font-size: 14px; }
+.s-foot { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 9px 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-soft); }
+@media (max-width: 640px) {
+  dialog.search { width: 100%; max-width: 100%; max-height: 100vh; max-height: 100dvh; height: 100dvh; margin: 0; border-radius: 0; border: 0; padding-top: env(safe-area-inset-top, 0px); }
+  .s-results button { grid-template-columns: minmax(0, 1fr); }
+  .s-type { grid-row: auto; }
+  .s-snip { white-space: normal; }
+  .s-foot { display: none; }
+}
+.flash { animation: flash 1.8s ease; border-radius: 6px; }
+@keyframes flash { 0%, 45% { box-shadow: 0 0 0 3px var(--benefit); } 100% { box-shadow: 0 0 0 3px transparent; } }
+.wrap { max-width: 1320px; margin: 0 auto; display: grid; gap: 44px; }
+h2.sec { font-family: var(--font-display); font-weight: 700; font-size: 22px; margin: 0; text-wrap: balance; }
+.sec-lede { margin: 0; color: var(--ink-soft); max-width: 70ch; }
+.block { display: grid; gap: 14px; }
+.ki { font-family: var(--font-body); font-weight: 400; font-size: .78em; color: var(--ink-soft); white-space: nowrap; }
+.card.head .ki, .p-head .ki { color: var(--head-soft); }
+
+/* Kopf */
+header { display: grid; gap: 16px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--brass); }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 5vw, 50px); line-height: 1.04; margin: 0; text-wrap: balance; }
+.lede { margin: 0; color: var(--ink-soft); font-size: 17px; max-width: 72ch; }
+.analysis-note { display: flex; gap: 12px; align-items: flex-start; max-width: 860px; background: var(--gain-bg); border: 1px solid var(--brass); border-radius: 8px; padding: 12px 14px; }
+.analysis-note p { margin: 0; font-size: 14.5px; color: var(--ink); }
+.an-tag { flex: none; font: 600 11px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; background: var(--brass); color: var(--surface); padding: 4px 8px; border-radius: 4px; margin-top: 1px; }
+.entity { border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; display: grid; gap: 2px; font-size: 13.5px; color: var(--ink-soft); background: var(--surface); max-width: 460px; }
+.entity b { color: var(--ink); font-size: 14.5px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 36px; margin: 4px 0 0; padding: 0; list-style: none; }
+.facts li { display: grid; }
+.facts b { font-family: var(--font-display); font-size: 28px; font-variant-numeric: tabular-nums; }
+.facts span { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); }
+
+/* Einstieg für den Geschäftsführer */
+.hero { background: var(--head-bg); color: var(--head-fg); border-radius: 12px; padding: clamp(22px, 4vw, 40px); display: grid; gap: 22px; }
+.hero .for { font: 500 12px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--head-gain); }
+.hero h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(24px, 3.6vw, 38px); line-height: 1.1; margin: 0; max-width: 26ch; text-wrap: balance; }
+.hero h2 em { font-style: normal; color: var(--head-gain); }
+.hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid rgba(255,255,255,.16); }
+.hero-stats > div { padding: 18px 18px 4px 0; display: grid; gap: 4px; align-content: start; min-width: 0; }
+.hero-stats > div + div { padding-left: 18px; border-left: 1px solid rgba(255,255,255,.16); }
+.hero-stats b { font-family: var(--font-display); font-weight: 700; font-size: clamp(38px, 6vw, 64px); line-height: 1; color: var(--head-gain); font-variant-numeric: tabular-nums; }
+.hero-stats span { font-size: 15px; font-weight: 600; }
+.hero-stats p { margin: 0; font-size: 14px; color: var(--head-soft); }
+.ticks { background: var(--benefit-bg); border: 1px solid var(--benefit); border-radius: 10px; padding: 18px 20px; display: grid; gap: 12px; }
+.ticks h2 { font-family: var(--font-display); font-weight: 700; font-size: 18px; margin: 0; color: var(--benefit); }
+.ticks ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 20px; }
+.ticks li { display: grid; grid-template-columns: 24px 1fr; gap: 8px; align-items: start; font-size: 15px; font-weight: 600; color: var(--ink); }
+.ticks li::before { content: "✓"; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--benefit); color: var(--benefit-fg); font-size: 13px; font-weight: 700; }
+.ticks li span { display: block; font-weight: 400; font-size: 13.5px; color: var(--ink-soft); }
+@media (max-width: 900px) { .ticks ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .ticks ul { grid-template-columns: minmax(0, 1fr); } .ticks { padding: 16px; } }
+.what-is { margin: 0; font-size: 14px; color: var(--head-soft); max-width: 82ch; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.16); }
+.what-is b { color: var(--head-fg); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-actions a, .hero-actions button { display: inline-block; text-decoration: none; border-radius: 999px; padding: 10px 18px; font: 600 14px var(--font-body); cursor: pointer; border: 1px solid var(--head-gain); }
+.hero-actions .primary { background: var(--head-gain); color: var(--head-bg); }
+.hero-actions .ghost { background: transparent; color: var(--head-fg); }
+.hero-actions a:focus-visible, .hero-actions button:focus-visible { outline: 2px solid var(--head-fg); outline-offset: 2px; }
+
+/* Vorteile für Geschäftsführer und Team */
+.audience { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.aud { border: 1px solid var(--line); border-radius: 10px; padding: 24px; display: grid; gap: 16px; align-content: start; background: var(--surface); min-width: 0; }
+.aud.gf { background: var(--head-bg); border-color: var(--head-bg); color: var(--head-fg); }
+.aud .for { font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--brass); }
+.aud.gf .for { color: var(--head-gain); }
+.aud h2 { font-family: var(--font-display); font-weight: 700; font-size: 24px; margin: 0; line-height: 1.15; text-wrap: balance; }
+.points { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.points li { display: grid; grid-template-columns: 92px 1fr; gap: 14px; align-items: start; padding-top: 14px; border-top: 1px solid var(--line); }
+.aud.gf .points li { border-top-color: rgba(255,255,255,.14); }
+.points .k { font-family: var(--font-display); font-weight: 700; font-size: 22px; line-height: 1.05; color: var(--brass); font-variant-numeric: tabular-nums; }
+.aud.gf .points .k { color: var(--head-gain); }
+.points b { display: block; font-size: 15px; margin-bottom: 2px; }
+.points p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+.aud.gf .points p { color: var(--head-soft); }
+
+
+/* Vorher / Nachher */
+.table-wrap { overflow-x: auto; }
+.compare { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--surface); border: 1px solid var(--line); }
+.compare th, .compare td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.compare thead th { font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); }
+.compare tbody tr:last-child td { border-bottom: 0; }
+.compare td:first-child { font-weight: 600; width: 22%; }
+.compare td:nth-child(2) { color: var(--ink-soft); width: 34%; }
+.compare td:nth-child(3)::before { content: "✓ "; color: var(--good); font-weight: 700; }
+.estimate { font-size: 12px; color: var(--ink-soft); margin: 0; }
+
+/* Zeitgewinn */
+.time { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 28px 40px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 26px; }
+.time-intro { display: grid; gap: 12px; align-content: start; }
+.time-intro h2 { font-family: var(--font-display); font-weight: 700; font-size: 22px; margin: 0; text-wrap: balance; }
+.time-intro p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
+.big { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 12px; font-family: var(--font-display); font-variant-numeric: tabular-nums; }
+.big .from { font-size: 30px; color: var(--ink-soft); text-decoration: line-through; text-decoration-thickness: 2px; }
+.big .arrow { font-size: 24px; color: var(--ink-soft); }
+.big .to { font-size: 54px; font-weight: 700; color: var(--brass); line-height: 1; }
+.big .unit { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); flex-basis: 100%; }
+.calc { border-left: 3px solid var(--brass); padding: 4px 0 4px 12px; display: grid; gap: 4px; font-size: 14px; }
+.calc b { font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--brass); }
+.calc span { font-variant-numeric: tabular-nums; }
+.weeks { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; min-width: 0; }
+.week { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; min-width: 0; }
+.bar-week { min-width: 0; }
+.week-label { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--ink-soft); }
+.week-label b { color: var(--ink); font-weight: 600; }
+.bar-week { display: flex; height: 34px; gap: 2px; }
+.bar-week button {
+  display: block; min-width: 0; padding: 0 8px; border: 0; border-radius: 3px; cursor: pointer;
+  font: 500 11px var(--font-mono); text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  background: var(--chip-bg); color: var(--ink-soft);
+}
+.bar-week button.client { background: var(--brass); color: var(--surface); }
+.bar-week button:hover { filter: brightness(.94); }
+.bar-week button[aria-pressed="true"] { outline: 2px solid var(--ink); outline-offset: 1px; }
+.bar-week button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.hint { font-size: 12.5px; color: var(--ink-soft); margin: 0; }
+.detail { background: var(--gain-bg); border-radius: 6px; padding: 14px 16px; display: grid; gap: 6px; }
+.detail h3 { font-family: var(--font-display); font-weight: 700; font-size: 17px; margin: 0; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.detail h3 span { color: var(--brass); font-variant-numeric: tabular-nums; }
+.detail p { margin: 0; font-size: 14px; }
+.detail p b { font-weight: 600; }
+.detail .open { justify-self: start; margin-top: 4px; border: 1px solid var(--brass); background: transparent; color: var(--brass); border-radius: 999px; padding: 5px 14px; font: 600 13px var(--font-body); cursor: pointer; }
+.detail .open:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.delegate { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.delegate th { text-align: left; font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); padding: 0 8px 8px 0; border-bottom: 1px solid var(--line); }
+.delegate td { padding: 8px 8px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.delegate td:last-child, .delegate th:last-child { text-align: right; padding-right: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.delegate tbody tr { cursor: pointer; }
+.delegate tbody tr:hover td, .delegate tbody tr.sel td { background: var(--gain-bg); }
+.delegate tbody tr:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.delegate tfoot td { font-weight: 600; border-bottom: 0; color: var(--brass); }
+
+/* Legende */
+.legend { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; font-size: 13px; color: var(--ink-soft); }
+.legend .key { display: inline-flex; align-items: center; gap: 8px; }
+.swatch-gain { width: 14px; height: 14px; border-radius: 3px; background: var(--gain-bg); border: 1px solid var(--brass); }
+.swatch-ai { width: 16px; height: 16px; border-radius: 50%; border: 1.5px dashed var(--brass); }
+.swatch-human { width: 16px; height: 16px; border-radius: 50%; background: var(--head-bg); }
+
+/* Karten */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 14px 12px; display: grid; gap: 8px; min-width: 0; text-align: left; }
+.who { display: grid; grid-template-columns: 38px 1fr; gap: 10px; align-items: center; }
+.av { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font: 600 12px var(--font-mono); background: var(--head-bg); color: var(--head-fg); }
+.card[data-ai] .av { background: transparent; border: 1.5px dashed var(--brass); color: var(--brass); }
+.name { font-family: var(--font-display); font-weight: 700; font-size: 16px; line-height: 1.2; }
+.role { font-size: 13px; color: var(--ink-soft); line-height: 1.3; }
+.kind { justify-self: start; font: 500 10.5px var(--font-mono); letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--line); color: var(--ink-soft); padding: 2px 7px; border-radius: 3px; }
+.task { margin: 0; font-size: 13px; color: var(--ink-soft); }
+.gain { margin: 2px 0 0; font-size: 13.5px; line-height: 1.35; color: var(--ink); background: var(--gain-bg); border-radius: 4px; padding: 8px 10px; }
+.gain b { display: block; font: 500 10.5px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--brass); margin-bottom: 2px; }
+.card.head { background: var(--head-bg); border-color: var(--head-bg); color: var(--head-fg); }
+.card.head .role, .card.head .task { color: var(--head-soft); }
+.card.head .av { background: var(--head-gain); color: var(--head-bg); border: 0; }
+.card.head[data-ai] .av { background: transparent; border: 1.5px dashed var(--head-gain); color: var(--head-gain); }
+.card.head .kind { border-color: rgba(255,255,255,.25); color: var(--head-soft); }
+.card.head .gain { background: rgba(255,255,255,.08); color: var(--head-fg); }
+.card.head .gain b { color: var(--head-gain); }
+.more { font: 500 11px var(--font-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--brass); }
+.card.head .more { color: var(--head-gain); }
+.chart .card { cursor: pointer; transition: border-color .15s ease; }
+.chart .card:hover { border-color: var(--brass); }
+.chart .card:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+/* Organigramm */
+.chart { display: grid; justify-items: center; }
+.stem { width: 2px; height: 28px; background: var(--line); }
+.apex { width: min(500px, 100%); padding: 18px; gap: 10px; }
+.apex .av { width: 50px; height: 50px; font-size: 16px; }
+.apex .who { grid-template-columns: 50px 1fr; }
+.apex .name { font-size: 22px; }
+.pair { width: 100%; max-width: 940px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); position: relative; padding-top: 28px; }
+.pair::before { content: ""; position: absolute; top: 0; left: 25%; right: 25%; border-top: 2px solid var(--line); }
+.pair > div { position: relative; padding: 0 12px; display: grid; }
+.pair > div::before { content: ""; position: absolute; top: -28px; left: calc(50% - 1px); width: 2px; height: 28px; background: var(--line); }
+.staff { width: 100%; border: 1.5px dashed var(--line); border-radius: 8px; padding: 14px; display: grid; gap: 10px; }
+.tier-label { font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); }
+.staff-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.divisions { width: 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); }
+.division { position: relative; padding-top: 28px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.division::before { content: ""; position: absolute; top: 0; left: calc(var(--gap) / -2); right: calc(var(--gap) / -2); border-top: 2px solid var(--line); }
+.division:first-child::before { left: 50%; }
+.division:last-child::before { right: 50%; }
+.division::after { content: ""; position: absolute; top: 0; left: calc(50% - 1px); width: 2px; height: 28px; background: var(--line); }
+.div-title { display: grid; gap: 2px; }
+.div-title h3 { font-family: var(--font-display); font-weight: 700; font-size: 17px; margin: 0; text-wrap: balance; }
+.div-title p { margin: 0; font-size: 13px; color: var(--ink-soft); }
+.team { list-style: none; margin: 0 0 0 14px; padding: 4px 0 0 18px; border-left: 2px solid var(--line); display: grid; gap: 10px; }
+.team > li { position: relative; }
+.team > li::before { content: ""; position: absolute; left: -18px; top: 28px; width: 18px; border-top: 2px solid var(--line); }
+
+/* Umsetzung */
+.diy { background: var(--head-bg); color: var(--head-fg); border-radius: 10px; padding: clamp(18px, 3vw, 28px); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px 32px; }
+.diy-head { display: grid; gap: 10px; align-content: start; }
+.diy-tag { justify-self: start; font: 600 11px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; background: var(--head-gain); color: var(--head-bg); padding: 4px 8px; border-radius: 4px; }
+.diy h3 { font-family: var(--font-display); font-weight: 700; font-size: clamp(21px, 2.6vw, 28px); line-height: 1.15; margin: 0; text-wrap: balance; }
+.diy-head p { margin: 0; color: var(--head-soft); font-size: 15px; }
+.diy-points { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.diy-points li { display: grid; grid-template-columns: 26px 1fr; gap: 2px 10px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.14); }
+.diy-points li::before { content: "✓"; grid-row: span 2; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--head-gain); color: var(--head-bg); font-size: 13px; font-weight: 700; }
+.diy-points b { font-size: 15.5px; }
+.diy-points span { font-size: 14px; color: var(--head-soft); }
+@media (max-width: 900px) { .diy { grid-template-columns: minmax(0, 1fr); } }
+.impl { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.impl li { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.impl .wk { justify-self: start; font: 600 11px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; background: var(--benefit); color: var(--benefit-fg); padding: 4px 8px; border-radius: 4px; }
+.impl h3 { font-family: var(--font-display); font-weight: 700; font-size: 16px; margin: 4px 0 0; line-height: 1.2; }
+.impl p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+.impl-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.impl-facts > div { border-radius: 8px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; background: var(--benefit-bg); border: 1px solid var(--benefit); min-width: 0; }
+.impl-facts h3 { font-family: var(--font-display); font-weight: 700; font-size: 16px; margin: 0; color: var(--benefit); }
+.impl-facts ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.impl-facts li { display: grid; grid-template-columns: 20px 1fr; gap: 6px; font-size: 14.5px; }
+.impl-facts li::before { content: "✓"; font-weight: 700; color: var(--benefit); }
+.impl-facts ul.no li::before { content: "✕"; }
+@media (max-width: 1100px) { .impl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 720px) { .impl, .impl-facts { grid-template-columns: minmax(0, 1fr); } }
+
+/* Lernende Agenten */
+.grow { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: clamp(18px, 3vw, 28px); display: grid; gap: 20px; }
+.grow-head { display: grid; gap: 10px; max-width: 78ch; }
+.grow-tag { justify-self: start; font: 600 11px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; background: var(--benefit); color: var(--benefit-fg); padding: 4px 8px; border-radius: 4px; }
+.grow-head h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(21px, 2.6vw, 28px); line-height: 1.15; margin: 0; text-wrap: balance; }
+.grow-head p { margin: 0; color: var(--ink-soft); font-size: 15px; }
+.grow-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.grow-steps li { display: grid; gap: 6px; align-content: start; padding: 16px; border-radius: 8px; background: var(--benefit-bg); min-width: 0; }
+.grow-steps .wk { justify-self: start; font: 600 11px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--benefit); }
+.grow-steps b { font-family: var(--font-display); font-size: 17px; }
+.grow-steps p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+.meter { display: block; height: 8px; border-radius: 4px; background: var(--surface); overflow: hidden; margin-top: 4px; }
+.meter i { display: block; height: 100%; border-radius: 4px; background: var(--benefit); }
+.m-l { font-size: 12.5px; font-weight: 600; color: var(--benefit); font-variant-numeric: tabular-nums; }
+.grow-points { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 20px; }
+.grow-points li { display: grid; grid-template-columns: 24px 1fr; gap: 2px 10px; }
+.grow-points li::before { content: "↗"; grid-row: span 2; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--benefit); color: var(--benefit-fg); font-size: 12px; font-weight: 700; }
+.grow-points b { font-size: 15px; }
+.grow-points span { font-size: 14px; color: var(--ink-soft); }
+@media (max-width: 900px) { .grow-steps, .grow-points { grid-template-columns: minmax(0, 1fr); } }
+
+/* Kontrolle */
+.quad { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.quad > div { padding: 18px 18px 16px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.quad > div + div { border-left: 1px solid var(--line); }
+.quad h3 { font-family: var(--font-display); font-weight: 700; font-size: 16px; margin: 0; line-height: 1.2; }
+.quad p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+.quad .by { font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .05em; color: var(--brass); }
+
+/* Ablauf */
+.flow ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; counter-reset: step; }
+.flow li { counter-increment: step; display: grid; gap: 4px; align-content: start; padding-top: 12px; border-top: 2px solid var(--ink); min-width: 0; }
+.flow li::before { content: "Schritt " counter(step); font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--brass); }
+.flow h3 { font-family: var(--font-display); font-size: 15px; margin: 0; }
+.flow p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
+.flow .who-does { font-size: 12.5px; color: var(--ink); }
+.note { font-size: 12.5px; color: var(--ink-soft); max-width: 95ch; margin: 0; border-top: 1px solid var(--line); padding-top: 18px; }
+
+/* Profilfenster */
+dialog.profile { width: min(640px, calc(100% - 32px)); max-height: calc(100% - 48px); overflow: auto; border: 1px solid var(--line); border-radius: 10px; padding: 0; background: var(--surface); color: var(--ink); }
+dialog.profile::backdrop { background: rgba(10, 20, 18, .55); }
+.p-head { background: var(--head-bg); color: var(--head-fg); padding: 22px 22px 18px; display: grid; gap: 10px; position: relative; }
+.p-head .who { grid-template-columns: 56px 1fr; padding-right: 40px; }
+.p-head .av { width: 56px; height: 56px; font-size: 16px; background: var(--head-gain); color: var(--head-bg); }
+.p-head.ai .av { background: transparent; border: 1.5px dashed var(--head-gain); color: var(--head-gain); }
+.p-head .name { font-size: 22px; }
+.p-head .role { color: var(--head-soft); font-size: 14px; }
+.p-head .kind { border-color: rgba(255,255,255,.25); color: var(--head-soft); }
+.p-close { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); background: transparent; color: var(--head-fg); font: 600 18px var(--font-body); cursor: pointer; line-height: 1; }
+.p-close:focus-visible { outline: 2px solid var(--head-gain); }
+.p-body { padding: 20px 22px 24px; display: grid; gap: 20px; }
+.p-body h3 { font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--brass); margin: 0 0 8px; }
+.skills { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.skills li { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; }
+.skills .s-name { font-size: 14.5px; }
+.skills .s-lvl { font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .04em; color: var(--ink-soft); }
+.skills .bar { grid-column: 1 / -1; display: block; height: 5px; border-radius: 3px; background: var(--chip-bg); overflow: hidden; }
+.skills .bar i { display: block; height: 100%; background: var(--ink); border-radius: 3px; }
+.p-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.p-facts p, .p-body .p-mandate { margin: 0; font-size: 14px; color: var(--ink-soft); }
+.standard { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.standard li { display: grid; grid-template-columns: 20px 1fr; gap: 8px; font-size: 14px; }
+.standard li::before { content: "✓"; font-weight: 700; color: var(--good); }
+.standard b { font-weight: 600; }
+
+/* Vorteilsfarbe: alles, was einen Nutzen zeigt, ist grün markiert */
+.points .k { color: var(--benefit); }
+.aud.gf .points .k { color: var(--head-gain); }
+.compare td:nth-child(3) { background: var(--benefit-bg); font-weight: 600; }
+.compare thead th:nth-child(3) { color: var(--benefit); }
+.big .to { color: var(--benefit); }
+.bar-week button.client { background: var(--benefit); color: var(--benefit-fg); }
+.detail { background: var(--benefit-bg); border-left: 4px solid var(--benefit); }
+.detail h3 span { color: var(--benefit); }
+.detail .open { border-color: var(--benefit); color: var(--benefit); }
+.delegate tbody tr:hover td, .delegate tbody tr.sel td { background: var(--benefit-bg); }
+.delegate td:last-child { color: var(--benefit); font-weight: 600; }
+.delegate tfoot td { color: var(--benefit); }
+.gain { background: var(--benefit-bg); border-left: 3px solid var(--benefit); }
+.gain b { color: var(--benefit); }
+.card.head .gain { border-left-color: var(--head-gain); }
+.swatch-gain { background: var(--benefit-bg); border-color: var(--benefit); }
+.calc { border-left-color: var(--benefit); }
+.calc b { color: var(--benefit); }
+
+@media (max-width: 1100px) {
+  .divisions { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 32px; border-top: 2px solid var(--line); padding-top: 24px; }
+  .division::before, .division::after { display: none; }
+  .division { padding-top: 0; }
+  .quad { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .quad > div:nth-child(3) { border-left: 0; }
+  .quad > div:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .flow ol { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 20px; }
+}
+@media (max-width: 900px) {
+  .time { grid-template-columns: minmax(0, 1fr); padding: 20px; }
+  .audience { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 720px) {
+  .hero-stats { grid-template-columns: 1fr; }
+  .hero-stats > div + div { padding-left: 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.16); }
+  .staff-grid, .divisions, .quad, .flow ol, .pair { grid-template-columns: 1fr; }
+  .pair { row-gap: 16px; padding-top: 0; }
+  .pair::before, .pair > div::before { display: none; }
+  .pair > div { padding: 0; }
+  .quad > div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .points li { grid-template-columns: 64px 1fr; gap: 10px; }
+  .points .k { font-size: 18px; }
+  .aud { padding: 18px; }
+  .aud h2 { font-size: 21px; }
+
+  /* Handy: kompakter Rhythmus, große Tippflächen */
+  body { padding-block: calc(76px + env(safe-area-inset-top, 0px)) 36px; }
+  .wrap { gap: 32px; }
+  /* Der Vorteil für Gylles soll ohne Scrollen sichtbar sein: Einleitung und Kennzahlen (wiederholen den Hero) entfallen */
+  .lede, .facts { display: none; }
+  header { gap: 12px; }
+  .entity { max-width: none; font-size: 12.5px; padding: 10px 12px; }
+  .entity b { font-size: 13.5px; }
+  .hero-actions a, .hero-actions button { width: 100%; text-align: center; min-height: 46px; }  .time { padding: 16px; gap: 22px; }
+  .big .to { font-size: 46px; }
+  .bar-week { height: 44px; }
+  .bar-week button { padding: 0 5px; font-size: 10.5px; }
+  .delegate { font-size: 13px; }
+  .detail .open { width: 100%; min-height: 44px; text-align: center; }
+  .card { padding: 14px; }
+
+  /* Vergleichstabelle als gestapelte Karten */
+  .compare, .compare tbody, .compare tr, .compare td { display: block; width: auto !important; }
+  .compare thead { display: none; }
+  .compare { border: 0; background: transparent; }
+  .compare tr { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .compare tr + tr { margin-top: 10px; }
+  .compare td { border-bottom: 0; padding: 6px 14px; }
+  .compare td:first-child { padding-top: 14px; font-size: 15.5px; font-family: var(--font-display); }
+  .compare td:nth-child(2)::before, .compare td:nth-child(3)::before { display: block; font: 500 10.5px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
+  .compare td:nth-child(2)::before { content: "Heute"; color: var(--ink-soft); }
+  .compare td:nth-child(3)::before { content: "✓ Mit KI-Agenten"; color: var(--benefit); }
+  .compare td:nth-child(3) { padding: 10px 14px 14px; margin-top: 6px; }
+
+  /* Profil als Bottom Sheet */
+  dialog.profile { width: 100%; max-width: 100%; max-height: 88vh; max-height: 88dvh; margin: auto 0 0; border-radius: 14px 14px 0 0; border-bottom: 0; }
+  .p-head { padding: 18px 16px 16px; }
+  .p-head .name { font-size: 20px; }
+  .p-body { padding: 18px 16px calc(24px + env(safe-area-inset-bottom, 0px)); }
+}
+@media (max-width: 520px) { .p-facts { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .chart .card { transition: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="topbar" id="topbar">
+  <div class="tb-inner">
+    <a class="brand" href="#top" aria-label="Zum Seitenanfang">
+      <span class="mark">NEO</span>
+      <span class="brand-t">Frankfurt<small>KI-Potenzialanalyse · v11</small></span>
+    </a>
+    <nav class="tb-nav" aria-label="Hauptmenü">
+      <a href="#vorteile">Ihr Vorteil</a>
+      <a href="#zeit">Ihre Woche</a>
+      <a href="#team-vorteile">Sie und Ihr Team</a>
+      <a href="#h-compare">Vergleich</a>
+      <a href="#h-impl">Praktische Umsetzung von KI-Agenten</a>
+      <a href="#h-chart">Organigramm</a>
+      <a href="#h-control">Kontrolle</a>
+      <a href="#h-flow">Ablauf</a>
+    </nav>
+    <button type="button" class="tb-btn tb-search" data-open-search aria-label="Suchen (Strg+K)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+      <span>Suchen</span><kbd>Strg K</kbd>
+    </button>
+    <button type="button" class="tb-btn tb-menu" id="open-menu" aria-expanded="false" aria-controls="mobile-menu">Menü</button>
+  </div>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Menü" hidden>
+    <a href="#vorteile">Ihr Vorteil</a>
+    <a href="#zeit">Ihre Woche</a>
+    <a href="#team-vorteile">Sie und Ihr Team</a>
+    <a href="#h-compare">Vergleich</a>
+    <a href="#h-impl">Praktische Umsetzung von KI-Agenten</a>
+    <a href="#h-chart">Organigramm</a>
+    <a href="#h-control">Kontrolle</a>
+    <a href="#h-flow">Ablauf</a>
+  </nav>
+</div>
+
+<div class="wrap" id="top">
+  <header>
+    <div class="eyebrow">Potenzialanalyse · Oktober 2026</div>
+    <h1>Was digitale Agenten bei NEO Frankfurt verbessern würden</h1>
+    <div class="analysis-note" role="note">
+      <span class="an-tag">Analyse</span>
+      <p>Diese Seite zeigt, was sich bei der NEO Real Estate Partners Frankfurt GmbH durch den Einsatz digitaler Agenten verbessern würde. Sie beschreibt ein Zielbild, nicht die heutige Organisation. Alle Zeit- und Mengenangaben sind Schätzungen.</p>
+    </div>
+    <p class="lede">Ein Geschäftsführer, sein Beraterteam und 20 spezialisierte KI-Agenten. Die Agenten erledigen die operative Arbeit eigenständig und nach festen Qualitätsstandards. Gylles Horlacher und sein Team gewinnen Zeit für das, was nur Menschen können: Kunden beraten, verhandeln und entscheiden.</p>
+    <div class="entity"><b>NEO Real Estate Partners Frankfurt GmbH</b><span>Thurn-und-Taxis-Platz 6, 60313 Frankfurt am Main</span><span>Geschäftsführer: Gylles Horlacher</span><span>Amtsgericht Frankfurt am Main · HRB 138282</span></div>
+    <ul class="facts">
+      <li><b>+20 h</b><span>Kundenzeit pro Woche</span></li>
+      <li><b>20</b><span>KI-Agenten</span></li>
+      <li><b>4</b><span>Fachbereiche</span></li>
+      <li><b>24/7</b><span>erreichbar</span></li>
+    </ul>
+  </header>
+
+  <!-- Einstieg: Was die digitale Assistenz Gylles Horlacher bringt -->
+  <section class="hero" id="vorteile" aria-labelledby="h-hero">
+    <span class="for">Ergebnis der Analyse · für Gylles Horlacher</span>
+    <h2 id="h-hero">Eine digitale Assistenz würde Ihnen <em>20 Stunden pro Woche</em> für Ihre Kunden freimachen.</h2>
+    <div class="hero-stats">
+      <div><b>+20 h</b><span>mehr Kundenzeit pro Woche</span><p>32 statt 12 Stunden für Beratung, Besichtigung und Verhandlung.</p></div>
+      <div><b>0</b><span>Abende für E-Mails und Angebote</span><p>Korrespondenz, Termine und Angebote erledigen die KI-Agenten. Sie geben nur frei.</p></div>
+      <div><b>24/7</b><span>jede Anfrage sofort beantwortet</span><p>Kein Interessent wartet bis Montag oder geht zum Wettbewerb.</p></div>
+    </div>
+    <p class="what-is"><b>Was ist ein KI-Agent?</b> Eine Software, die eine klar umrissene Aufgabe eigenständig erledigt, wie ein spezialisierter Mitarbeiter: rund um die Uhr, nach festen Vorgaben und immer mit Ihrer Freigabe, bevor etwas an Kunden geht.</p>
+    <div class="hero-actions">
+      <a class="primary" href="#zeit">So kommen die 20 Stunden zustande</a>
+      <button type="button" class="ghost" id="meet-sarah">Ihre Assistenz Sarah Keller (KI-Agent) kennenlernen</button>
+    </div>
+  </section>
+
+  <!-- Vorteile auf einen Blick -->
+  <section class="ticks" id="auf-einen-blick" aria-labelledby="h-ticks">
+    <h2 id="h-ticks">Was sich durch KI-Agenten verbessern würde</h2>
+    <ul>
+      <li><div>Mehr Zeit für Kunden<span>20 Stunden pro Woche zusätzlich für Beratung und Abschlüsse.</span></div></li>
+      <li><div>Keine verlorenen Anfragen<span>Antwort in Minuten, auch abends und am Wochenende.</span></div></li>
+      <li><div>Schnellere Angebote<span>Freigabefertig am Tag des Erstgesprächs.</span></div></li>
+      <li><div>Werden ständig besser<span>Lernen aus jeder Korrektur und passen sich neuen Abläufen an.</span></div></li>
+      <li><div>Wachstum ohne Neueinstellungen<span>Mehr Mandate mit demselben Team.</span></div></li>
+      <li><div>Volle Kontrolle<span>Nichts geht ohne Ihre Freigabe an Kunden.</span></div></li>
+    </ul>
+  </section>
+
+  <!-- Zeitgewinn -->
+  <section class="time" id="zeit" aria-label="Zeitgewinn der Geschäftsführung">
+    <div class="time-intro">
+      <h2>Analyse Ihrer Woche: heute und mit KI-Agenten</h2>
+      <div class="big"><span class="from">12 h</span><span class="arrow">→</span><span class="to">32 h</span><span class="unit">Kundenzeit pro Woche, rund 2,7-mal so viel wie heute</span></div>
+      <p>Die KI-Agenten übernehmen alle Aufgaben, die keine unternehmerische Entscheidung brauchen, und führen sie vollständig aus. Sie prüfen die Ergebnisse und geben frei.</p>
+      <div class="calc" aria-label="Rechnung">
+        <b>So ist gerechnet</b>
+        <span>Heute: 12 h Kunden + 38 h Routine = 50 h</span>
+        <span>Die KI-Agenten übernehmen die 38 h Routine.</span>
+        <span>Davon fließen 20 h in Kunden, 10 h in Strategie, 8 h bleiben für Prüfung und Freigabe.</span>
+        <span>Mit KI-Agenten: 32 h + 10 h + 8 h = 50 h</span>
+      </div>
+    </div>
+    <div class="weeks">
+      <div class="week">
+        <div class="week-label"><b>Ohne KI-Agenten</b><span>50-Stunden-Woche</span></div>
+        <div class="bar-week" role="group" aria-label="Woche ohne KI-Agenten">
+          <button type="button" class="client" style="flex: 12" data-task="kunden-heute" title="Kunden 12 h">Kunden 12 h</button>
+          <button type="button" style="flex: 9" data-task="termine" title="Termine 9 h">Termine 9 h</button>
+          <button type="button" style="flex: 8" data-task="angebote" title="Angebote 8 h">Angebote 8 h</button>
+          <button type="button" style="flex: 8" data-task="recherche" title="Recherche 8 h">Recherche 8 h</button>
+          <button type="button" style="flex: 6" data-task="marketing" title="Marketing 6 h">Marketing 6 h</button>
+          <button type="button" style="flex: 4" data-task="vertraege" title="Verträge 4 h">Verträge 4 h</button>
+          <button type="button" style="flex: 3" data-task="verwaltung" title="Verwaltung 3 h">Verw. 3 h</button>
+        </div>
+      </div>
+      <div class="week">
+        <div class="week-label"><b>Mit KI-Agenten</b><span>50-Stunden-Woche</span></div>
+        <div class="bar-week" role="group" aria-label="Woche mit KI-Agenten">
+          <button type="button" class="client" style="flex: 32" data-task="kunden-neu" title="Kunden 32 h">Kunden 32 h</button>
+          <button type="button" style="flex: 10" data-task="strategie" title="Strategie 10 h">Strategie 10 h</button>
+          <button type="button" style="flex: 8" data-task="freigaben" title="Freigaben 8 h">Freigaben 8 h</button>
+        </div>
+      </div>
+      <p class="hint">Balken oder Tabellenzeile anklicken: Sie sehen, wer die Aufgabe übernimmt und was bei Ihnen bleibt.</p>
+      <div class="detail" id="detail" aria-live="polite">
+        <h3><em id="d-title" style="font-style:normal"></em><span id="d-hours"></span></h3>
+        <p id="d-who"></p>
+        <p id="d-what"></p>
+        <p id="d-rest"></p>
+        <button type="button" class="open" id="d-open" hidden></button>
+      </div>
+      <div class="table-wrap">
+        <table class="delegate">
+          <thead><tr><th>Aufgabe</th><th>Übernimmt</th><th>Zeitgewinn</th></tr></thead>
+          <tbody>
+            <tr tabindex="0" data-task="termine"><td>Termine, Korrespondenz, Gesprächsvorbereitung</td><td>Sarah Keller (KI-Agent)</td><td>9 h</td></tr>
+            <tr tabindex="0" data-task="angebote"><td>Angebote und Pitchunterlagen</td><td>Jana Roth (KI-Agent)</td><td>8 h</td></tr>
+            <tr tabindex="0" data-task="recherche"><td>Markt-, Standort- und Wertanalysen</td><td>Research-Team (KI-Agenten)</td><td>8 h</td></tr>
+            <tr tabindex="0" data-task="marketing"><td>Exposés und Vermarktung</td><td>Sophie Wagner (KI-Agent)</td><td>6 h</td></tr>
+            <tr tabindex="0" data-task="vertraege"><td>Vertragsentwürfe und Geldwäscheprüfung</td><td>Markus Feld (KI-Agent)</td><td>4 h</td></tr>
+            <tr tabindex="0" data-task="verwaltung"><td>Abrechnung und Verwaltung</td><td>Miriam Seidel (KI-Agent)</td><td>3 h</td></tr>
+          </tbody>
+          <tfoot><tr><td colspan="2">Freie Zeit pro Woche</td><td>38 h</td></tr></tfoot>
+        </table>
+      </div>
+      <p class="estimate">Beispielrechnung mit geschätzten Werten für eine typische Woche.</p>
+    </div>
+  </section>
+
+  <!-- Vorteile im Detail: Geschäftsführer und Team -->
+  <section class="audience" id="team-vorteile" aria-label="Vorteile für Geschäftsführer und Mitarbeiter">
+    <div class="aud gf">
+      <span class="for">Ihre Vorteile im Detail</span>
+      <h2>Was sich für Sie ändert, Herr Horlacher</h2>
+      <ul class="points">
+        <li><span class="k">+20 h</span><div><b>Mehr Zeit für Ihre Kunden</b><p>32 statt 12 Stunden pro Woche für Beratung, Besichtigung und Verhandlung.</p></div></li>
+        <li><span class="k">24/7</span><div><b>Erreichbar, ohne selbst erreichbar sein zu müssen</b><p>Sarah Keller (KI-Agent) beantwortet Anfragen sofort und bucht Termine in Ihren Kalender. Ihre Abende und Wochenenden bleiben frei.</p></div></li>
+        <li><span class="k">1 Tag</span><div><b>Angebote ohne Abendarbeit</b><p>Jana Roth (KI-Agent) erstellt das Angebot direkt nach dem Erstgespräch. Sie prüfen nur noch und geben frei.</p></div></li>
+        <li><span class="k">100 %</span><div><b>Volle Kontrolle</b><p>Nichts geht ohne Ihre Freigabe an Kunden. Jeder Arbeitsschritt der Agenten ist dokumentiert.</p></div></li>
+        <li><span class="k">Live</span><div><b>Überblick in Echtzeit</b><p>Mandate, Pipeline, Termine und Kennzahlen sind jederzeit aktuell, ohne Nachfragen im Team.</p></div></li>
+        <li><span class="k">Mehr</span><div><b>Wachstum ohne mehr Arbeitsstunden</b><p>Mehr Mandate gleichzeitig betreuen: Die Zuarbeit wächst mit, nicht Ihr Kalender.</p></div></li>
+      </ul>
+    </div>
+    <div class="aud">
+      <span class="for">Vorteile für Ihre Mitarbeiter</span>
+      <h2>Ihr Beraterteam wird spürbar entlastet</h2>
+      <ul class="points">
+        <li><span class="k">Fertig</span><div><b>Entwürfe statt Routinearbeit</b><p>Exposés, Recherche, Ablage und Datenpflege übernehmen die Agenten. Das Team bekommt fertige Entwürfe und Analysen.</p></div></li>
+        <li><span class="k">Mehr</span><div><b>Mehr Zeit beim Kunden</b><p>Mehr Besichtigungen, mehr Gespräche, mehr Abschlüsse statt Schreibtischarbeit.</p></div></li>
+        <li><span class="k">0</span><div><b>Keine Überstunden in Spitzenzeiten</b><p>Lastspitzen fangen die Agenten ab, auch abends und am Wochenende.</p></div></li>
+        <li><span class="k">1 Standard</span><div><b>Bessere Unterlagen</b><p>Jede Präsentation im einheitlichen NEO-Format mit belastbaren Marktdaten. Das stärkt jeden Berater im Termin.</p></div></li>
+        <li><span class="k">Sicher</span><div><b>Weniger Fehler bei Pflichtprüfungen</b><p>Geldwäscheprüfung und Vertragsunterlagen bereitet Markus Feld (KI-Agent) vollständig vor.</p></div></li>
+        <li><span class="k">Schnell</span><div><b>Schneller eingearbeitet</b><p>Neue Kolleginnen und Kollegen finden alles Wissen dokumentiert und erhalten Abläufe von den Agenten erklärt.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Vorher / Nachher -->
+  <section class="block" aria-labelledby="h-compare">
+    <h2 class="sec" id="h-compare">Typische Situationen: heute und was sich verbessern würde</h2>
+    <div class="table-wrap">
+      <table class="compare">
+        <thead><tr><th>Situation</th><th>Heute</th><th>Mit KI-Agenten</th></tr></thead>
+        <tbody>
+          <tr><td>Anfrage am Freitagabend</td><td>Wird am Montag gelesen, der Interessent hat inzwischen andere Makler kontaktiert.</td><td>Antwort in Minuten, ein Termin bei Ihnen ist gebucht.</td></tr>
+          <tr><td>Angebot nach dem Erstgespräch</td><td>Mehrere Tage, weil Sie es abends nebenher schreiben.</td><td>Am selben Tag zur Freigabe bereit, im einheitlichen NEO-Format.</td></tr>
+          <tr><td>Markt- und Standortanalyse</td><td>Stunden manueller Recherche pro Objekt.</td><td>Aufbereitet mit Vergleichsmieten, Lage und Wettbewerb.</td></tr>
+          <tr><td>Exposé und Vermarktung</td><td>Texte, Grundrisse und Daten werden einzeln zusammengetragen.</td><td>Entwurf innerhalb weniger Stunden, nach Ihrer Freigabe sofort online.</td></tr>
+          <tr><td>Datenraum und Due Diligence</td><td>Unterlagen fehlen, Käufer warten auf Antworten.</td><td>Laufend vollständig, Käuferfragen werden schnell beantwortet.</td></tr>
+          <tr><td>Nachfassen bei Interessenten</td><td>Geht im Tagesgeschäft unter.</td><td>Automatische Wiedervorlage und Nachverfolgung im CRM.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="estimate">Zielbild. Zeitangaben auf dieser Seite sind Schätzungen für die Planung, keine gemessenen Werte.</p>
+  </section>
+
+  <!-- Umsetzung -->
+  <section class="block" aria-labelledby="h-impl">
+    <h2 class="sec" id="h-impl">So einfach wäre die Umsetzung</h2>
+    <p class="sec-lede">Schritt für Schritt, ohne Systemwechsel und ohne das Tagesgeschäft zu unterbrechen. Der erste spürbare Effekt käme bereits nach wenigen Wochen.</p>
+    <div class="diy">
+      <div class="diy-head">
+        <span class="diy-tag">Ohne Technik · ohne Programmierung</span>
+        <h3>Sie könnten die Umsetzung selbst machen, Herr Horlacher.</h3>
+        <p>KI-Agenten werden in normaler Sprache eingerichtet. Sie beschreiben eine Aufgabe so, wie Sie sie einem neuen Mitarbeiter erklären würden. Technische Vorkenntnisse oder Programmierung sind dafür nicht nötig.</p>
+      </div>
+      <ul class="diy-points">
+        <li><b>In Ihren eigenen Worten</b><span>„Beantworte Anfragen zu Büroflächen und biete zwei Termine in meinem Kalender an.“ Mehr braucht ein Agent als Auftrag nicht.</span></li>
+        <li><b>Mit Ihren Beispielen</b><span>Ein gutes Angebot oder Exposé als Vorlage hochladen. Der Agent übernimmt Stil und Aufbau.</span></li>
+        <li><b>Jederzeit selbst anpassen</b><span>Anweisung ändern, Agent pausieren oder neu starten. Ohne Dienstleister und ohne Wartezeit.</span></li>
+      </ul>
+    </div>
+    <ol class="impl">
+      <li><span class="wk">Woche 1</span><h3>Ziele festlegen</h3><p>Sie notieren, welche Aufgaben Sie zuerst abgeben möchten. Eine einfache Liste genügt.</p></li>
+      <li><span class="wk">Woche 1–2</span><h3>Programme verbinden</h3><p>E-Mail, Kalender und CRM verbinden Sie über Ihre bestehende Anmeldung, so einfach wie bei einer neuen App. Das Team arbeitet in den gewohnten Programmen weiter.</p></li>
+      <li><span class="wk">Woche 2–3</span><h3>Start mit Sarah Keller (KI-Agent)</h3><p>Sie beschreiben Ihrer Assistenz in eigenen Worten, wie Anfragen und Termine laufen sollen. Die Entlastung spüren Sie sofort.</p></li>
+      <li><span class="wk">ab Woche 4</span><h3>Selbst erweitern</h3><p>Weitere Agenten für Angebote, Research und Marketing richten Sie nach demselben Prinzip ein, einen nach dem anderen.</p></li>
+    </ol>
+    <div class="impl-facts">
+      <div><h3>Ihr Aufwand</h3><ul><li>rund 2 Stunden pro Woche in den ersten vier Wochen</li><li>Beispiele für gute Angebote, Exposés und E-Mails bereitstellen</li><li>Ergebnisse prüfen und Rückmeldung geben</li></ul></div>
+      <div><h3>Nicht nötig</h3><ul class="no"><li>keine technischen Kenntnisse und keine Programmierung</li><li>kein Wechsel der bestehenden Software</li><li>keine eigene IT-Abteilung</li><li>keine Neueinstellungen</li><li>kein Komplettumbau: jeder Agent einzeln start- und stoppbar</li></ul></div>
+    </div>
+    <p class="estimate">Zeitrahmen geschätzt; der tatsächliche Ablauf hängt von den vorhandenen Systemen ab.</p>
+  </section>
+
+  <!-- Lernende Agenten -->
+  <section class="grow" id="lernen" aria-labelledby="h-grow">
+    <div class="grow-head">
+      <span class="grow-tag">Lernende KI-Mitarbeiter</span>
+      <h2 id="h-grow">Ihre KI-Mitarbeiter würden mit jeder Woche besser</h2>
+      <p>Anders als eine starre Software passen sich KI-Agenten laufend an. Jede Ihrer Korrekturen, jede neue Vorlage und jede Rückmeldung fließt in ihre Anweisungen ein. So würden die Ergebnisse von Woche zu Woche passgenauer und Ihr Prüfaufwand kleiner.</p>
+    </div>
+    <ol class="grow-steps" aria-label="Entwicklung des Prüfaufwands">
+      <li><span class="wk">Woche 1</span><b>Lernphase</b><p>Sie prüfen fast jedes Ergebnis und korrigieren Stil und Inhalt.</p><span class="meter" aria-hidden="true"><i style="width: 100%"></i></span><span class="m-l">Ihr Prüfaufwand: ca. 8 h pro Woche</span></li>
+      <li><span class="wk">Monat 1</span><b>Eingespielt</b><p>Die Agenten kennen Ihren Stil, Ihre Kunden und Ihre Vorlagen.</p><span class="meter" aria-hidden="true"><i style="width: 63%"></i></span><span class="m-l">Ihr Prüfaufwand: ca. 5 h pro Woche</span></li>
+      <li><span class="wk">Monat 3</span><b>Routine</b><p>Die meisten Ergebnisse passen auf Anhieb. Sie geben überwiegend nur noch frei.</p><span class="meter" aria-hidden="true"><i style="width: 38%"></i></span><span class="m-l">Ihr Prüfaufwand: ca. 3 h pro Woche</span></li>
+    </ol>
+    <ul class="grow-points">
+      <li><b>Lernen aus jeder Korrektur</b><span>Was Sie einmal verbessern, wird beim nächsten Mal von selbst richtig gemacht.</span></li>
+      <li><b>Passen sich an Veränderungen an</b><span>Neue Abläufe, Preise, Marktdaten oder Vorgaben ergänzen Sie einfach in der Anweisung, und die Agenten arbeiten sofort danach.</span></li>
+      <li><b>Wissen geht nie verloren</b><span>Was ein Agent gelernt hat, bleibt erhalten und steht Ihrem ganzen Team zur Verfügung, rund um die Uhr.</span></li>
+    </ul>
+    <p class="estimate">Prüfaufwand geschätzt. Die Verbesserung entsteht durch Ihre Rückmeldungen und gepflegte Anweisungen und Vorlagen.</p>
+  </section>
+
+  <!-- Organigramm -->
+  <section class="block" aria-labelledby="h-chart">
+    <h2 class="sec" id="h-chart">Zielbild: Organigramm mit KI-Agenten</h2>
+    <div class="legend" aria-label="Legende">
+      <span class="key"><i class="swatch-human"></i>Mensch</span>
+      <span class="key"><i class="swatch-ai"></i>KI-Agent</span>
+      <span class="key"><i class="swatch-gain"></i>Nutzen</span>
+      <span>Karte anklicken für das Kompetenzprofil</span>
+    </div>
+  </section>
+
+  <section class="chart" aria-label="Organigramm">
+    <article class="card head apex">
+      <div class="who"><div class="av">GH</div><div><div class="name">Gylles Horlacher</div><div class="role">Geschäftsführer · NEO Real Estate Partners Frankfurt GmbH</div></div></div>
+      <span class="kind">Mensch · Gesamtverantwortung</span>
+      <p class="task">Kundenberatung, Verhandlungen, Freigaben, Führung von Team und KI-Agenten</p>
+      <p class="gain"><b>Nutzen</b>Rund 32 Stunden pro Woche für persönliche Beratung, weil die KI-Agenten alles Operative erledigen.</p>
+    </article>
+
+    <div class="pair">
+      <div>
+        <article class="card" data-ai>
+          <div class="who"><div class="av">SK</div><div><div class="name">Sarah Keller <span class="ki">(KI-Agent)</span></div><div class="role">Persönliche KI-Assistenz von Gylles Horlacher</div></div></div>
+          <span class="kind">KI-Agent</span>
+          <p class="task">Termine, Korrespondenz, Mandatsunterlagen</p>
+          <p class="gain"><b>Nutzen</b>Sofortige Antwort auf Anfragen und direkte Terminvergabe bei Gylles, rund um die Uhr.</p>
+        </article>
+      </div>
+      <div>
+        <article class="card">
+          <div class="who"><div class="av">NEO</div><div><div class="name">NEO-Beraterteam Frankfurt</div><div class="role">Beraterinnen, Berater und Lead Consultants</div></div></div>
+          <span class="kind">Menschen · bestehendes Team</span>
+          <p class="task">Kundenbetreuung, Besichtigungen, Verhandlungen</p>
+          <p class="gain"><b>Nutzen</b>Jede Beraterin und jeder Berater arbeitet mit den KI-Agenten als Zuarbeit: Analysen, Exposés und Unterlagen auf Abruf.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="stem"></div>
+
+    <div class="staff">
+      <div class="tier-label">Stabsstellen · KI-Agenten</div>
+      <div class="staff-grid">
+        <article class="card" data-ai>
+          <div class="who"><div class="av">JR</div><div><div class="name">Jana Roth <span class="ki">(KI-Agent)</span></div><div class="role">Angebots- &amp; Pitchmanagement</div></div></div>
+          <span class="kind">KI-Agent</span>
+          <p class="task">Honorarangebote, Pitchbooks, Vermarktungskonzepte</p>
+          <p class="gain"><b>Nutzen</b>Ein professionelles Angebot mit Leistungen, Zeitplan und Kosten, das Kunden intern direkt weitergeben können.</p>
+        </article>
+        <article class="card" data-ai>
+          <div class="who"><div class="av">MF</div><div><div class="name">Markus Feld <span class="ki">(KI-Agent)</span></div><div class="role">Compliance &amp; Recht</div></div></div>
+          <span class="kind">KI-Agent</span>
+          <p class="task">Geldwäscheprüfung, Vertragsentwürfe, Datenschutz</p>
+          <p class="gain"><b>Nutzen</b>Vollständig vorbereitete Vertragsunterlagen und geprüfte Vertragspartner von Beginn an.</p>
+        </article>
+        <article class="card" data-ai>
+          <div class="who"><div class="av">SW</div><div><div class="name">Sophie Wagner <span class="ki">(KI-Agent)</span></div><div class="role">Marketing &amp; Kommunikation</div></div></div>
+          <span class="kind">KI-Agent</span>
+          <p class="task">Exposés, Marktberichte, LinkedIn, Presse</p>
+          <p class="gain"><b>Nutzen</b>Immobilien werden hochwertig präsentiert und erreichen die passenden Interessenten.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="stem"></div>
+
+    <div class="divisions">
+      <div class="division">
+        <div class="div-title"><h3>Investment &amp; Transaktion</h3><p>Verkauf, Ankauf, Off-Market</p></div>
+        <article class="card head" data-ai>
+          <div class="who"><div class="av">TR</div><div><div class="name">Tobias Reinhardt <span class="ki">(KI-Agent)</span></div><div class="role">KI-Bereichsleitung Investment</div></div></div>
+          <span class="kind">KI-Agent</span>
+          <p class="gain"><b>Nutzen</b>Ein strukturierter Verkaufsprozess mit klaren Meilensteinen bis zum Notartermin.</p>
+        </article>
+        <ul class="team">
+          <li><article class="card" data-ai>
+            <div class="who"><div class="av">CV</div><div><div class="name">Carina Vogt <span class="ki">(KI-Agent)</span></div><div class="role">Investment Wohnen &amp; Mixed-Use</div></div></div>
+            <span class="kind">KI-Agent</span>
+            <p class="gain"><b>Nutzen</b>Marktgerechte Preise für Wohn- und Geschäftshäuser.</p>
+          </article></li>
+          <li><article class="card" data-ai>
+            <div class="who"><div class="av">JK</div><div><div class="name">Jonas Klein <span class="ki">(KI-Agent)</span></div><div class="role">Investment Büro &amp; Gewerbe</div></div></div>
+            <span class="kind">KI-Agent</span>
+            <p class="gain"><b>Nutzen</b>Überzeugende Unterlagen für institutionelle Käufer und Family Offices.</p>
+          </article></li>
+          <li><article class="card" data-ai>
+            <div class="who"><div class="av">AD</div><div><div class="name">Aylin Demir <span class="ki">(KI-Agent)</span></div><div class="role">Transaction Management</div></div></div>
+            <span class="kind">KI-Agent</span>
+            <p class="task">Datenraum, Due Diligence, Closing</p>
+            <p class="gain"><b>Nutzen</b>Vollständige Unterlagen, weniger Rückfragen der Käufer und eine kürzere Prüfphase.</p>
+          </article></li>
+          <li><article class="card" data-ai>
+            <div class="who"><div class="av">FH</div><div><div class="name">Felix Hartmann <span class="ki">(KI-Agent)</span></div><div class="role">Off-Market &amp; Akquise</div></div></div>
+            <span class="kind">KI-Agent</span>
+            <p class="gain"><b>Nutzen</b>Diskreter Verkauf ohne öffentliche Vermarktung, wenn der Eigentümer das wünscht.</p>
+          </article></li>
+        </ul>
+      </div>
+
+      <div class="division">
+        <div class="div-title"><h3>Vermietung</h3><p>Büro, Einzelhandel, Logistik</p></div>
+        <article class="card head" data-ai>
+          <div class="who"><div class="av">NA</div><div><div class="name">Nadine Albrecht <span class="ki">(KI-Agent)</span></div><div class="role">KI-Bereichsleitung Vermietung</div></div></div>
+          <span class="kind">KI-Agent</span>
+          <p class="gain"><b>Nutzen</b>Kürzere Leerstandszeiten durch aktive, durchgehende Mieteransprache.</p>
+        </article>
+        <ul class="team">
+          <li><article class="card" data-ai>
+            <div class="who"><div class="av">MO</div><div><div class="name">Maximilian Ott <span class="ki">(KI-Agent)</span></div><div class="role">Vermietung Büro</div></div></div>
+            <span class="kind">KI-Agent</span>
+            <p class="gain"><b>Nutzen</b>Passende, bonitätsstarke Büromieter mit langen Laufzeiten.</p>
+          </article></li>
+          <li><article class="card" data-ai>
+            <div class="who"><div class="av">EP</div><div><div class="name">Elena Petrović <span class="ki">(KI-Agent)</span></div><div class="role">Vermietung Einzelhandel &amp; Logistik</div></div></div>
+            <span class="kind">KI-Agent</span>
+            <p class="gain"><b>Nutzen</b>Ein passender Mietermix für Handels- und Logistikflächen.</p>
+          </article></li>
+          <li><article class="card" data-ai>
+            <div class="who"><div class="av">DS</div><div><div class="name">David Schuster <span class="ki">(KI-Agent)</span></div><div class="role">Mietoptimierung &amp; Asset Advisory</div></div></div>
+            <span class="kind">KI-Agent</span>
+            <p class="task">Mieterstruktur, Restlaufzeiten (WALT), Indexierung</p>
+            <p class="gain"><b>Nutzen</b>Höhere Mieterträge und ein höherer Objektwert.</p>
+          </article></li>
+        </ul>
+      </div>
+
+      <div class="division">
+        <div class="div-title"><h3>Research &amp; Bewertung</h3><p>Standortanalysen, Marktdaten, Wertindikation</p></div>
+        <article class="card head" data-ai>
+          <div class="who"><div class="av">JL</div><div><div class="name">Julia Lorenz <span class="ki">(KI-Agent)</span></div><div class="role">KI-Bereichsleitung Research</div></div></div>
+          <span class="kind">KI-Agent</span>
+          <p class="gain"><b>Nutzen</b>Jede Empfehlung ist mit Marktdaten belegt und nachvollziehbar.</p>
+        </article>
+        <ul class="team">
+          <li><article class="card" data-ai>
+            <div class="who"><div class="av">BK</div><div><div class="name">Ben Kaiser <span class="ki">(KI-Agent)</span></div><div class="role">Standort- &amp; Marktanalyse</div></div></div>
+            <span class="kind">KI-Agent</span>
+            <p class="gain"><b>Nutzen</b>Lage, Nachfrage und Wettbewerb sind bekannt, bevor entschieden wird.</p>
+          </article></li>
+          <li><article class="card" data-ai>
+            <div class="who"><div class="av">HW</div><div><div class="name">Hannah Weiß <span class="ki">(KI-Agent)</span></div><div class="role">Bewertungsanalyse</div></div></div>
+            <span class="kind">KI-Agent</span>
+            <p class="task">DCF-, Ertrags- und Vergleichswert</p>
+            <p class="gain"><b>Nutzen</b>Eine belastbare Wertindikation als Grundlage für Preis und Verhandlung.</p>
+          </article></li>
+          <li><article class="card" data-ai>
+            <div class="who"><div class="av">LF</div><div><div class="name">Leon Fischer <span class="ki">(KI-Agent)</span></div><div class="role">Daten &amp; CRM</div></div></div>
+            <span class="kind">KI-Agent</span>
+            <p class="gain"><b>Nutzen</b>Schneller Abgleich jedes Objekts mit vorgemerkten Käufern und Mietern.</p>
+          </article></li>
+        </ul>
+      </div>
+
+      <div class="division">
+        <div class="div-title"><h3>Operations &amp; Finanzen</h3><p>Controlling, IT, Prozesse</p></div>
+        <article class="card head" data-ai>
+          <div class="who"><div class="av">PW</div><div><div class="name">Patrick Wolf <span class="ki">(KI-Agent)</span></div><div class="role">KI-Bereichsleitung Operations</div></div></div>
+          <span class="kind">KI-Agent</span>
+          <p class="gain"><b>Nutzen</b>Verlässliche Abläufe und klare Zuständigkeiten in jeder Projektphase.</p>
+        </article>
+        <ul class="team">
+          <li><article class="card" data-ai>
+            <div class="who"><div class="av">MS</div><div><div class="name">Miriam Seidel <span class="ki">(KI-Agent)</span></div><div class="role">Finanzen &amp; Controlling</div></div></div>
+            <span class="kind">KI-Agent</span>
+            <p class="gain"><b>Nutzen</b>Transparente Abrechnung ohne versteckte Kosten.</p>
+          </article></li>
+          <li><article class="card" data-ai>
+            <div class="who"><div class="av">KB</div><div><div class="name">Kevin Braun <span class="ki">(KI-Agent)</span></div><div class="role">IT &amp; Prozesse</div></div></div>
+            <span class="kind">KI-Agent</span>
+            <p class="task">CRM, virtueller Datenraum, Informationssicherheit</p>
+            <p class="gain"><b>Nutzen</b>Vertrauliche Objektdaten sind geschützt und jederzeit online einsehbar.</p>
+          </article></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontrolle -->
+  <section class="block" aria-labelledby="h-control">
+    <h2 class="sec" id="h-control">Verantwortung und Kontrolle</h2>
+    <div class="quad">
+      <div><span class="by">Freigabe</span><h3>Letzte Entscheidung beim Menschen</h3><p>Angebote, Preise, Verträge und alles, was an Kunden geht, geben Sie persönlich frei.</p></div>
+      <div><span class="by">Transparenz</span><h3>Klar gekennzeichnete KI</h3><p>Kunden wissen jederzeit, ob sie mit einem Menschen oder mit einem KI-Agenten kommunizieren.</p></div>
+      <div><span class="by">Datenschutz</span><h3>Geschützte Kundendaten</h3><p>Die Agenten arbeiten nur in freigegebenen Systemen und nur mit den Daten, die für das Mandat nötig sind.</p></div>
+      <div><span class="by">Fachprüfung</span><h3>Experten, wo nötig</h3><p>Rechtsfragen und formale Gutachten gehen an zugelassene Anwälte und Sachverständige. Die KI bereitet vor, sie ersetzt sie nicht.</p></div>
+    </div>
+  </section>
+
+  <!-- Ablauf -->
+  <section class="block flow" aria-labelledby="h-flow">
+    <h2 class="sec" id="h-flow">So läuft ein Mandat</h2>
+    <ol>
+      <li><h3>Erstanfrage</h3><p>Die Anfrage wird sofort beantwortet und ein Termin bei Ihnen vereinbart.</p><span class="who-does">Sarah Keller (KI-Agent)</span></li>
+      <li><h3>Beratungsgespräch</h3><p>Ziele, Objekt und Zeitrahmen klären Sie persönlich mit dem Kunden.</p><span class="who-does">Sie persönlich</span></li>
+      <li><h3>Analyse</h3><p>Standort, Marktmiete und Wert werden ermittelt.</p><span class="who-does">Research-Team (KI-Agenten)</span></li>
+      <li><h3>Angebot</h3><p>Der Kunde erhält ein professionelles Angebot mit Strategie, Zeitplan und Honorar.</p><span class="who-does">Jana Roth (KI-Agent), Ihre Freigabe</span></li>
+      <li><h3>Umsetzung</h3><p>Vermarktung und Abschluss. Verhandlungen und Termine vor Ort führen Sie und Ihr Beraterteam.</p><span class="who-does">KI-Agenten, Beraterteam und Sie</span></li>
+    </ol>
+  </section>
+
+  <p class="note">Potenzialanalyse: Diese Seite zeigt, was sich durch digitale Agenten verbessern würde. Sie ist keine Darstellung der heutigen Organisation der NEO Real Estate Partners Frankfurt GmbH. Firmendaten nach Angabe des Auftraggebers, Leistungsfelder nach der öffentlichen Website neorealestate.de. Menschen im Organigramm sind Gylles Horlacher und das bestehende Beraterteam; alle mit „(KI-Agent)“ gekennzeichneten Rollen sind KI-Agenten mit frei gewählten Namen. Zeitwerte, Prozentangaben und Leistungsversprechen sind Schätzungen und Zielwerte.</p>
+</div>
+
+<dialog class="search" id="search" aria-label="Suche">
+  <div class="s-field">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+    <input type="search" id="s-input" placeholder="Suchen: Agent, Aufgabe, Vorteil …" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="s-results" aria-autocomplete="list">
+    <button type="button" class="s-close" id="s-close">Schließen</button>
+  </div>
+  <div>
+    <div class="s-label" id="s-label">Vorschläge</div>
+    <ul class="s-results" id="s-results" role="listbox" aria-labelledby="s-label"></ul>
+  </div>
+  <div class="s-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> auswählen</span><span><kbd>Enter</kbd> öffnen</span><span><kbd>Esc</kbd> schließen</span></div>
+</dialog>
+
+<dialog class="profile" id="profile" aria-labelledby="p-name">
+  <div class="p-head" id="p-head">
+    <button type="button" class="p-close" id="p-close" aria-label="Profil schließen">×</button>
+    <div class="who"><div class="av" id="p-av"></div><div><div class="name" id="p-name"></div><div class="role" id="p-role"></div></div></div>
+    <span class="kind" id="p-kind"></span>
+  </div>
+  <div class="p-body">
+    <section><h3 id="p-skills-h"></h3><ul class="skills" id="p-skills"></ul></section>
+    <div class="p-facts">
+      <section><h3>Arbeitsgrundlage</h3><p id="p-qual"></p></section>
+      <section><h3 id="p-free-h"></h3><p id="p-free"></p></section>
+    </div>
+    <section><h3>Das übernimmt diese Rolle im Mandat</h3><p class="p-mandate" id="p-mandate"></p></section>
+    <section id="p-standard"><h3>So arbeiten die KI-Agenten</h3>
+      <ul class="standard">
+        <li><span><b>Eigenständig:</b> Aufgaben werden vollständig ausgeführt, nicht nur vorbereitet.</span></li>
+        <li><span><b>Nach festem Standard:</b> einheitliche Vorlagen, Checklisten und Qualitätsprüfung vor jeder Abgabe.</span></li>
+        <li><span><b>Mit menschlicher Freigabe:</b> alles, was an Kunden geht, prüft und bestätigt Gylles Horlacher.</span></li>
+        <li><span><b>Nachvollziehbar:</b> jeder Arbeitsschritt ist im CRM dokumentiert.</span></li>
+        <li><span><b>Lernt ständig dazu:</b> jede Korrektur und jede neue Vorlage verbessert die nächsten Ergebnisse.</span></li>
+      </ul>
+    </section>
+  </div>
+</dialog>
+
+<script>
+// Kompetenzprofile: Stufe 3 = Experte, 2 = Fortgeschritten, 1 = Grundkenntnisse
+// q = Arbeitsgrundlage, f = menschliche Freigabe bzw. Verantwortung, m = Rolle im Mandat
+var PROFILES = {
+  "Gylles Horlacher": { human: true, s: [["Mandatsführung und Eigentümerberatung",3],["Verhandlung von Transaktionen und Mietverträgen",3],["Besichtigungen und Termine vor Ort",3],["Freigabe aller Angebote, Preise und Verträge",3],["Führung von Beraterteam und KI-Agenten",3]], q: "Erfahrung, Marktkenntnis und persönliches Netzwerk in Frankfurt und Hessen", f: "Geschäftsführer der NEO Real Estate Partners Frankfurt GmbH, trägt die Gesamtverantwortung", m: "Betreut Mandate persönlich, führt die entscheidenden Gespräche und Verhandlungen und gibt jedes Ergebnis der KI-Agenten frei." },
+  "NEO-Beraterteam Frankfurt": { human: true, s: [["Persönliche Kundenbetreuung",3],["Besichtigungen vor Ort",3],["Verhandlungen mit Mietern und Käufern",3],["Arbeit mit KI-Agenten als Zuarbeit",3]], q: "Erfahrung, Kundenbeziehungen und Marktkenntnis Rhein-Main", f: "Berichtet an Gylles Horlacher", m: "Betreut Kunden persönlich, führt Besichtigungen und Verhandlungen. Analysen, Exposés, Unterlagen und Datenpflege liefern die KI-Agenten zu." },
+  "Sarah Keller": { s: [["Terminkoordination und Kalenderführung der Geschäftsführung",3],["Beantwortung von Kundenanfragen",3],["Vorbereitung von Beratungsgesprächen",3],["Dokumentenmanagement und Wiedervorlagen",3],["Organisation von Besichtigungen und Notarterminen",3]], q: "Kalender, Postfach und CRM von Gylles Horlacher, Gesprächsleitfäden", f: "Gylles Horlacher bestätigt Termine mit neuen Kunden", m: "Beantwortet Anfragen sofort, plant alle Termine mit Gylles Horlacher und hält Kunden über jeden Schritt auf dem Laufenden." },
+  "Jana Roth": { s: [["Erstellung von Honorar- und Leistungsangeboten",3],["Pitchbooks und Vermarktungskonzepte",3],["Kalkulation von Honoraren und Vermarktungsbudgets",3],["Aufbereitung von Marktdaten für Präsentationen",3],["Beantwortung von Ausschreibungen",2]], q: "Angebotsvorlagen, Honorarmodelle, Marktdaten aus dem Research", f: "Jedes Angebot geht vor Versand an Gylles Horlacher zur Freigabe", m: "Erstellt das Angebot mit Strategie, Zeitplan und Honorar in einem einheitlichen, präsentationsfähigen Format." },
+  "Markus Feld": { s: [["Identitätsprüfung und Dokumentation nach Geldwäschegesetz",3],["Entwürfe für Makler- und Mietverträge",3],["Vorprüfung von Vertragsunterlagen",3],["Datenschutz-Dokumentation nach DSGVO",2],["Vorbereitung für Notar und Kanzlei",3]], q: "Geldwäschegesetz, Gewerbeordnung, Mietrecht, DSGVO, geprüfte Vertragsvorlagen", f: "Verträge prüft Gylles Horlacher, bei Bedarf zusätzlich eine Rechtsanwaltskanzlei", m: "Prüft Vertragspartner und bereitet Verträge vor, damit der Abschluss ohne Verzögerung zustande kommt." },
+  "Sophie Wagner": { s: [["Exposés und Objektpräsentationen",3],["Marktberichte und Newsletter",3],["LinkedIn und Social Media",3],["Pressemitteilungen",2],["Briefing für Foto, Video und 3D-Rundgang",2]], q: "NEO-Corporate-Design, Objektdaten, Bildmaterial", f: "Exposés und Veröffentlichungen gibt Gylles Horlacher frei", m: "Sorgt dafür, dass jede Immobilie hochwertig präsentiert wird und bei den richtigen Zielgruppen ankommt." },
+  "Tobias Reinhardt": { s: [["Steuerung strukturierter Verkaufsprozesse",3],["Koordination der Investment-Agenten",3],["Vorbereitung von Kaufpreisverhandlungen",3],["Ankaufsprofile für Investoren",3],["Marktkenntnis Rhein-Main",3]], q: "Transaktionsfahrplan, Käuferdatenbank, Marktdaten Rhein-Main", f: "Preisstrategie und Käuferauswahl entscheidet Gylles Horlacher", m: "Steuert den Verkaufs- oder Ankaufsprozess von der Strategie bis zum Notartermin." },
+  "Carina Vogt": { s: [["Vermarktung von Wohn- und Geschäftshäusern",3],["Kaufpreisvorschläge Wohnen",3],["Qualifizierung von Kaufinteressenten",3],["Vorbereitung von WEG-Aufteilungen",2],["Aufbereitung von Mixed-Use-Projekten",2]], q: "Vergleichsdaten Wohnen, Exposé-Vorlagen, Interessentenliste", f: "Preisverhandlungen führt Gylles Horlacher persönlich", m: "Vermarktet Wohn- und Mixed-Use-Objekte und qualifiziert Kaufinteressenten vor." },
+  "Jonas Klein": { s: [["Investment-Memoranden für Gewerbeobjekte",3],["Vorbereitung der Ansprache institutioneller Käufer",3],["Analyse von Gewerbemietverträgen",3],["Unterlagen für Share Deals und Asset Deals",2]], q: "Investorenprofile, Mietvertragsdaten, Memorandum-Vorlagen", f: "Ansprache neuer Investoren gibt Gylles Horlacher frei", m: "Bereitet Gewerbeobjekte für institutionelle Investoren und Family Offices auf." },
+  "Aylin Demir": { s: [["Aufbau und Pflege virtueller Datenräume",3],["Koordination der Due Diligence",3],["Beantwortung von Käuferfragen",3],["Vorbereitung von Closing und Übergabe",3],["Abstimmung mit Notar und Finanzierern",2]], q: "Virtueller Datenraum, Due-Diligence-Checklisten", f: "Zugänge zum Datenraum gibt Gylles Horlacher frei", m: "Hält alle Unterlagen vollständig bereit und beantwortet Käuferfragen schnell, damit die Prüfphase kurz bleibt." },
+  "Felix Hartmann": { s: [["Diskrete Off-Market-Vermarktung",3],["Identifikation passender Eigentümer",3],["Ansprache und Nachverfolgung",3],["Erstbewertung von Objekten",2]], q: "Eigentümer- und Objektdatenbank, Netzwerkkontakte", f: "Diskrete Ansprachen gehen nur nach Freigabe durch Gylles Horlacher hinaus", m: "Bringt Objekte diskret zu ausgewählten Käufern, ohne öffentliche Inserate." },
+  "Nadine Albrecht": { s: [["Vermietungsstrategien für Büro- und Gewerbeflächen",3],["Vorbereitung von Mietvertragsverhandlungen",3],["Koordination der Vermietungs-Agenten",3],["Marktkenntnis Frankfurt und Hessen",3],["Projektvermietung im Neubau",2]], q: "Flächendatenbank, Mietgesuche, Marktmieten Rhein-Main", f: "Mietkonditionen entscheidet Gylles Horlacher", m: "Entwickelt die Vermietungsstrategie für jede Fläche und steuert die Mieteransprache." },
+  "Maximilian Ott": { s: [["Vermarktung von Büroflächen",3],["Flächenbedarfsanalyse für Mietinteressenten",3],["Besichtigungsplanung und Mieterkommunikation",3],["Kalkulation von Ausbau und Mietanreizen",2]], q: "Mietgesuche, Flächenpläne, Vergleichsmieten Büro", f: "Besichtigungen vor Ort führen Gylles Horlacher oder das Beraterteam", m: "Findet passende Büromieter und bereitet die Vertragsunterzeichnung vor." },
+  "Elena Petrović": { s: [["Vermarktung von Einzelhandelsflächen",3],["Vermarktung von Logistik- und Hallenflächen",3],["Abgleich mit Expansionsprofilen von Handelsketten",3],["Modellierung von Umsatzmieten und Mietermix",2]], q: "Expansionsprofile von Handelsketten, Logistikmarktdaten", f: "Mietangebote gibt Gylles Horlacher frei", m: "Sucht Handels- und Logistikmieter, die zu Standort und Fläche passen." },
+  "David Schuster": { s: [["Analyse der Mieterstruktur",3],["Steuerung von Restlaufzeiten (WALT)",3],["Index- und Staffelmieten",3],["Nebenkostenoptimierung",2],["Business Plans für Bestandsobjekte",2]], q: "Mieterlisten, Mietverträge, Nebenkostenabrechnungen", f: "Maßnahmen bespricht Gylles Horlacher mit dem Eigentümer", m: "Zeigt, wo ein Objekt Mietpotenzial hat, und erhöht so Ertrag und Wert." },
+  "Julia Lorenz": { s: [["Marktanalysen und Research-Berichte",3],["Standort- und Lageanalyse",3],["Koordination der Research-Agenten",3],["Mietpreis- und Renditeprognosen",3],["Pflege von Marktdatenquellen",3]], q: "Marktdatenbanken, amtliche Statistiken, eigene Transaktionsdaten", f: "Research-Berichte gibt Gylles Horlacher vor Versand frei", m: "Liefert die Marktdaten, auf denen jede Preis- und Mietempfehlung beruht." },
+  "Ben Kaiser": { s: [["Mikro- und Makrolageanalyse",3],["Wettbewerbs- und Leerstandsanalyse",3],["Auswertung von Geodaten",3],["Zielgruppenanalyse",2]], q: "Geodaten, Bevölkerungs- und Wirtschaftsdaten, Wettbewerbsflächen", f: "Gylles Horlacher bewertet die Ergebnisse zusätzlich vor Ort", m: "Analysiert Lage, Nachfrage und Wettbewerb rund um das Objekt." },
+  "Hannah Weiß": { s: [["DCF-Berechnungen",3],["Indikationen nach Ertrags- und Vergleichswert",3],["Sensitivitätsanalysen",3],["Plausibilisierung von Kaufpreisen",3]], q: "Bewertungsmodelle, Vergleichstransaktionen, Immobilienwertermittlungsverordnung", f: "Wertindikationen ersetzen kein Gutachten; bei Bedarf wird ein zertifizierter Sachverständiger beauftragt", m: "Ermittelt eine belastbare Wertindikation als Grundlage für den Angebotspreis." },
+  "Leon Fischer": { s: [["CRM-Pflege und Datenqualität",3],["Abgleich von Objekten mit Suchprofilen",3],["Auswertungen und Kennzahlen",3],["Datenschutzkonforme Kontaktverwaltung",3]], q: "CRM, Suchprofile, Objektdaten", f: "Datenexporte nur nach Freigabe durch Gylles Horlacher", m: "Gleicht jedes Objekt mit vorgemerkten Käufern und Mietern ab, damit die Vermarktung schnell startet." },
+  "Patrick Wolf": { s: [["Prozess- und Projektsteuerung",3],["Koordination von Finanzen und IT",3],["Qualitätsprüfung der Arbeitsergebnisse",3],["Steuerung externer Dienstleister",2]], q: "Prozessbeschreibungen, Projektpläne, Kennzahlen", f: "Prioritäten setzt Gylles Horlacher", m: "Sorgt für verlässliche Abläufe und klare Zuständigkeiten in jeder Projektphase." },
+  "Miriam Seidel": { s: [["Provisions- und Honorarabrechnung",3],["Controlling und Pipeline-Prognose",3],["Budgetplanung",3],["Zuarbeit für die Steuerberatung",3]], q: "Buchhaltungssystem, Honorarvereinbarungen", f: "Rechnungen gibt Gylles Horlacher frei, Abschlüsse erstellt die Steuerberatung", m: "Erstellt eine transparente, nachvollziehbare Abrechnung." },
+  "Kevin Braun": { s: [["CRM-Administration",3],["Virtuelle Datenräume",3],["Zugriffsrechte und Informationssicherheit",3],["Automatisierung von Abläufen",3],["IT-Support",2]], q: "CRM, Datenraum, Rechte- und Rollenkonzept", f: "Zugriffsrechte gibt Gylles Horlacher frei", m: "Schützt vertrauliche Objektdaten und richtet Kundenzugänge zum Datenraum ein." }
+};
+var LEVELS = { 3: "Experte", 2: "Fortgeschritten", 1: "Grundkenntnisse" };
+
+// Zeitbausteine der Woche: h = Stunden, a = übernehmender KI-Agent (Profilname)
+var TASKS = {
+  "kunden-heute": { t: "Ihre Kundenzeit heute", h: "12 h", who: "Sie persönlich", what: "Beratungsgespräche, Besichtigungen und Verhandlungen. Mehr ist heute nicht drin, weil 38 Stunden in Routine gehen.", rest: "Ziel: diese Zeit auf 32 Stunden erhöhen." },
+  "termine": { t: "Termine, Korrespondenz, Vorbereitung", h: "9 h", a: "Sarah Keller", what: "Kalenderführung, E-Mails beantworten, Termine bestätigen und verschieben, Unterlagen für Gespräche zusammenstellen.", rest: "Sie bestätigen nur Termine mit neuen Kunden. Das ist in den 8 h Freigaben enthalten." },
+  "angebote": { t: "Angebote und Pitchunterlagen", h: "8 h", a: "Jana Roth", what: "Honorarangebot, Vermarktungskonzept und Pitchbook im NEO-Format, mit Marktdaten aus dem Research.", rest: "Sie prüfen das fertige Angebot und geben es frei." },
+  "recherche": { t: "Markt-, Standort- und Wertanalysen", h: "8 h", a: "Julia Lorenz", what: "Vergleichsmieten, Lage- und Wettbewerbsanalyse, Wertindikation. Erledigt vom Research-Team mit Julia Lorenz, Ben Kaiser und Hannah Weiß (KI-Agenten).", rest: "Sie bewerten die Ergebnisse und bringen Ihre Ortskenntnis ein." },
+  "marketing": { t: "Exposés und Vermarktung", h: "6 h", a: "Sophie Wagner", what: "Exposé-Texte, Objektpräsentation, Inserate, LinkedIn-Beiträge und Marktberichte.", rest: "Sie geben Exposés und Veröffentlichungen frei." },
+  "vertraege": { t: "Vertragsentwürfe und Geldwäscheprüfung", h: "4 h", a: "Markus Feld", what: "Identitätsprüfung nach Geldwäschegesetz, Entwürfe für Makler- und Mietverträge, Unterlagen für Notar und Kanzlei.", rest: "Sie prüfen die Verträge, bei Bedarf zusätzlich eine Kanzlei." },
+  "verwaltung": { t: "Abrechnung und Verwaltung", h: "3 h", a: "Miriam Seidel", what: "Provisions- und Honorarabrechnung, Rechnungen, Zuarbeit für die Steuerberatung.", rest: "Sie geben Rechnungen frei." },
+  "kunden-neu": { t: "Ihre Kundenzeit mit KI-Agenten", h: "32 h", who: "Sie persönlich", what: "12 h wie bisher plus 20 h aus der freigewordenen Routinezeit. Mehr Gespräche, mehr Besichtigungen, mehr Abschlüsse.", rest: "Rund 2,7-mal so viel Kundenzeit wie heute." },
+  "strategie": { t: "Strategie und Führung", h: "10 h", who: "Sie", what: "Neu gewonnene Zeit für Akquise großer Mandate, Netzwerkpflege, Führung des Beraterteams und Steuerung der KI-Agenten.", rest: "Diese Zeit gab es vorher praktisch nicht." },
+  "freigaben": { t: "Prüfung und Freigabe", h: "8 h", who: "Sie", what: "Ergebnisse der KI-Agenten prüfen und freigeben: Angebote, Exposés, Verträge, Rechnungen, neue Termine.", rest: "So bleibt jede Entscheidung bei Ihnen. Das sind rund 20 % der früheren Routinezeit." }
+};
+
+(function () {
+  var dlg = document.getElementById('profile');
+  var skillsEl = document.getElementById('p-skills');
+  var cards = document.querySelectorAll('.chart .card');
+  function esc(t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+  function setText(id, t) { document.getElementById(id).textContent = t; }
+  function keyOf(card) { return card.querySelector('.name').childNodes[0].textContent.trim(); }
+
+  function openProfile(card) {
+    var key = keyOf(card);
+    var p = PROFILES[key];
+    if (!p) return;
+    var human = !!p.human;
+    document.getElementById('p-head').classList.toggle('ai', !human);
+    setText('p-av', card.querySelector('.av').textContent);
+    document.getElementById('p-name').innerHTML = esc(key) + (human ? '' : ' <span class="ki">(KI-Agent)</span>');
+    setText('p-role', card.querySelector('.role').textContent);
+    setText('p-kind', card.querySelector('.kind').textContent);
+    setText('p-skills-h', human ? 'Konzentriert sich auf' : 'Führt diese Aufgaben eigenständig und professionell aus');
+    setText('p-free-h', human ? 'Verantwortung' : 'Menschliche Freigabe');
+    skillsEl.innerHTML = p.s.map(function (s) {
+      return '<li><span class="s-name">' + esc(s[0]) + '</span><span class="s-lvl">' + LEVELS[s[1]] +
+        '</span><span class="bar"><i style="width:' + Math.round(s[1] / 3 * 100) + '%"></i></span></li>';
+    }).join('');
+    setText('p-qual', p.q);
+    setText('p-free', p.f);
+    setText('p-mandate', p.m);
+    document.getElementById('p-standard').hidden = human;
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+  }
+  function openByName(name) {
+    for (var i = 0; i < cards.length; i++) { if (keyOf(cards[i]) === name) { openProfile(cards[i]); return; } }
+  }
+
+  cards.forEach(function (card) {
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', 'Kompetenzprofil von ' + keyOf(card) + ' öffnen');
+    var more = document.createElement('span');
+    more.className = 'more';
+    more.textContent = 'Kompetenzprofil ansehen →';
+    card.appendChild(more);
+    card.addEventListener('click', function () { openProfile(card); });
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openProfile(card); }
+    });
+  });
+
+  function closeProfile() { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
+  document.getElementById('p-close').addEventListener('click', closeProfile);
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) closeProfile(); });
+
+  // Klickbare Zeitbalken und Tabelle
+  var segs = document.querySelectorAll('.bar-week button');
+  var rows = document.querySelectorAll('.delegate tbody tr');
+  var openBtn = document.getElementById('d-open');
+  function selectTask(id) {
+    var t = TASKS[id];
+    if (!t) return;
+    segs.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-task') === id ? 'true' : 'false'); });
+    rows.forEach(function (r) { r.classList.toggle('sel', r.getAttribute('data-task') === id); });
+    setText('d-title', t.t);
+    setText('d-hours', t.h + ' pro Woche');
+    document.getElementById('d-who').innerHTML = '<b>' + (t.a ? 'Übernimmt:' : 'Wer:') + '</b> ' +
+      (t.a ? esc(t.a) + ' <span class="ki">(KI-Agent)</span>' : esc(t.who));
+    document.getElementById('d-what').innerHTML = '<b>Konkret:</b> ' + esc(t.what);
+    document.getElementById('d-rest').innerHTML = '<b>' + (t.a ? 'Bei Ihnen bleibt:' : 'Ergebnis:') + '</b> ' + esc(t.rest);
+    if (t.a) {
+      openBtn.hidden = false;
+      openBtn.textContent = 'Kompetenzprofil von ' + t.a + ' ansehen';
+      openBtn.onclick = function () { openByName(t.a); };
+    } else {
+      openBtn.hidden = true;
+      openBtn.onclick = null;
+    }
+  }
+  segs.forEach(function (b) { b.addEventListener('click', function () { selectTask(b.getAttribute('data-task')); }); });
+  rows.forEach(function (r) {
+    r.addEventListener('click', function () { selectTask(r.getAttribute('data-task')); });
+    r.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectTask(r.getAttribute('data-task')); }
+    });
+  });
+  selectTask('kunden-neu');
+  document.getElementById('meet-sarah').addEventListener('click', function () { openByName('Sarah Keller'); });
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function scrollToEl(el, center) {
+    if (!el) return;
+    el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: center ? 'center' : 'start' });
+  }
+  function flash(el) {
+    if (!el) return;
+    el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+  }
+
+  // Kopfleiste: immer fixiert, beim Scrollen kompakter, aktiven Abschnitt markieren
+  var bar = document.getElementById('topbar');
+  var menuBtn = document.getElementById('open-menu');
+  var menu = document.getElementById('mobile-menu');
+  var navLinks = document.querySelectorAll('.tb-nav a, .mobile-menu a');
+  var secIds = ['vorteile', 'zeit', 'team-vorteile', 'h-compare', 'h-impl', 'h-chart', 'h-control', 'h-flow'];
+  var ticking = false;
+  function setMenu(open) {
+    menu.hidden = !open;
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    menuBtn.textContent = open ? 'Schließen' : 'Menü';
+  }
+  menuBtn.addEventListener('click', function () { setMenu(menu.hidden); });
+  menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+  function onScroll() {
+    var y = window.scrollY || 0;
+    bar.classList.toggle('scrolled', y > 8);
+    var active = null;
+    secIds.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top < 160) active = id;
+    });
+    navLinks.forEach(function (a) {
+      var on = a.getAttribute('href') === '#' + active;
+      a.classList.toggle('active', on);
+      if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    });
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  onScroll();
+
+  // Suche über Abschnitte, Personen, KI-Agenten, Aufgaben und Vorteile
+  var sDlg = document.getElementById('search');
+  var sInput = document.getElementById('s-input');
+  var sList = document.getElementById('s-results');
+  var sLabel = document.getElementById('s-label');
+  function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ß/g, 'ss'); }
+  var INDEX = [];
+  [
+    ['vorteile', 'Ihr Vorteil', 'Digitale Assistenz: 20 Stunden mehr Kundenzeit, 24/7 erreichbar, was ist ein KI-Agent'],
+    ['auf-einen-blick', 'Die Vorteile auf einen Blick', 'Sechs Vorteile von KI-Agenten'],
+    ['zeit', 'Ihre Woche', 'Zeitgewinn und Rechnung: von 12 auf 32 Stunden Kundenzeit'],
+    ['team-vorteile', 'Sie und Ihr Team', 'Vorteile im Detail für Geschäftsführer und Beraterteam'],
+    ['h-compare', 'Typische Situationen', 'Vergleich heute und mit KI-Agenten'],
+    ['h-impl', 'So einfach wäre die Umsetzung', 'Selbst umsetzbar ohne Technik und ohne Programmierung, vier Schritte, Aufwand, Einführung, Zeitplan, keine neue Software'],
+    ['lernen', 'KI-Mitarbeiter würden mit jeder Woche besser', 'Lernen aus Korrekturen, passen sich an, verbessern sich ständig, Prüfaufwand sinkt'],
+    ['h-chart', 'Zielbild: Organigramm', 'Alle Menschen und KI-Agenten nach Fachbereichen'],
+    ['h-control', 'Verantwortung und Kontrolle', 'Freigabe, Transparenz, Datenschutz, Fachprüfung'],
+    ['h-flow', 'So läuft ein Mandat', 'Ablauf in fünf Schritten von der Anfrage bis zum Abschluss']
+  ].forEach(function (s) {
+    INDEX.push({ type: 'Abschnitt', cls: '', title: s[1], snip: s[2], hay: norm(s[1] + ' ' + s[2]),
+      go: function () { scrollToEl(document.getElementById(s[0])); } });
+  });
+  cards.forEach(function (card) {
+    var key = keyOf(card), p = PROFILES[key];
+    if (!p) return;
+    var role = card.querySelector('.role').textContent;
+    INDEX.push({ type: p.human ? 'Mensch' : 'KI-Agent', cls: p.human ? 'human' : 'ai', title: key + (p.human ? '' : ' (KI-Agent)'), snip: role,
+      hay: norm(key + ' ' + role + ' ' + p.s.map(function (x) { return x[0]; }).join(' ') + ' ' + p.q + ' ' + p.m + (p.human ? '' : ' ki-agent ki agent')),
+      go: function () { openProfile(card); } });
+  });
+  Object.keys(TASKS).forEach(function (id) {
+    var t = TASKS[id];
+    INDEX.push({ type: 'Ihre Woche', cls: '', title: t.t + ' · ' + t.h, snip: t.a ? 'Übernimmt ' + t.a + ' (KI-Agent)' : t.what,
+      hay: norm(t.t + ' ' + t.what + ' ' + (t.a || '') + ' ' + t.rest + ' zeit stunden'),
+      go: function () { selectTask(id); scrollToEl(document.getElementById('detail'), true); flash(document.getElementById('detail')); } });
+  });
+  document.querySelectorAll('.impl li').forEach(function (li) {
+    INDEX.push({ type: 'Umsetzung', cls: '', title: li.querySelector('h3').textContent + ' · ' + li.querySelector('.wk').textContent, snip: li.querySelector('p').textContent,
+      hay: norm(li.textContent + ' umsetzung einfuhrung'),
+      go: function () { scrollToEl(li, true); flash(li); } });
+  });
+  document.querySelectorAll('.ticks li, .points li').forEach(function (li) {
+    var b = li.querySelector('b');
+    var title = b ? b.textContent : li.querySelector('div').childNodes[0].textContent;
+    var descEl = li.querySelector('p') || li.querySelector('div span');
+    INDEX.push({ type: 'Vorteil', cls: '', title: title, snip: descEl ? descEl.textContent : '',
+      hay: norm(title + ' ' + (descEl ? descEl.textContent : '') + ' vorteil nutzen'),
+      go: function () { scrollToEl(li, true); flash(li); } });
+  });
+  document.querySelectorAll('.compare tbody tr').forEach(function (tr) {
+    INDEX.push({ type: 'Vergleich', cls: '', title: tr.cells[0].textContent, snip: tr.cells[2].textContent,
+      hay: norm(tr.textContent + ' vergleich heute'),
+      go: function () { scrollToEl(tr, true); flash(tr); } });
+  });
+  function findItem(title) { for (var i = 0; i < INDEX.length; i++) { if (INDEX[i].title.indexOf(title) === 0) return INDEX[i]; } return null; }
+  var SUGGEST = ['Ihr Vorteil', 'Ihre Woche', 'Sarah Keller', 'Jana Roth', 'Angebote und Pitchunterlagen', 'Verantwortung und Kontrolle']
+    .map(findItem).filter(Boolean);
+
+  var shown = [], cur = 0;
+  function hl(text, words) {
+    var t = esc(text);
+    words.forEach(function (w) {
+      if (w.length < 2 || /^(mark|amp|lt|gt|quot|span)$/.test(w)) return;
+      t = t.replace(new RegExp('(' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'), '<mark>$1</mark>');
+    });
+    return t;
+  }
+  function render() {
+    var q = norm(sInput.value.trim());
+    var words = q.split(/\s+/).filter(Boolean);
+    if (!words.length) {
+      shown = SUGGEST;
+      sLabel.textContent = 'Vorschläge';
+    } else {
+      shown = INDEX.map(function (it) {
+        if (!words.every(function (w) { return it.hay.indexOf(w) > -1; })) return null;
+        var tn = norm(it.title);
+        var score = words.reduce(function (s, w) { return s + (tn.indexOf(w) === 0 ? 4 : tn.indexOf(w) > -1 ? 2 : 0); }, 0);
+        return { it: it, score: score };
+      }).filter(Boolean).sort(function (a, b) { return b.score - a.score; }).slice(0, 14).map(function (x) { return x.it; });
+      sLabel.textContent = shown.length === 1 ? '1 Treffer' : shown.length + ' Treffer';
+    }
+    cur = 0;
+    if (!shown.length) {
+      sList.innerHTML = '<li class="s-empty">Keine Treffer. Versuchen Sie zum Beispiel „Angebot“, „Sarah“, „Vermietung“ oder „Freigabe“.</li>';
+      sInput.removeAttribute('aria-activedescendant');
+      return;
+    }
+    sList.innerHTML = shown.map(function (it, i) {
+      return '<li role="option" id="s-opt-' + i + '"' + (i === cur ? ' class="cur" aria-selected="true"' : ' aria-selected="false"') + '>' +
+        '<button type="button" data-i="' + i + '" tabindex="-1"><span class="s-type ' + it.cls + '">' + esc(it.type) + '</span>' +
+        '<span class="s-title">' + hl(it.title, words) + '</span><span class="s-snip">' + hl(it.snip, words) + '</span></button></li>';
+    }).join('');
+    sInput.setAttribute('aria-activedescendant', 's-opt-0');
+  }
+  function move(d) {
+    if (!shown.length) return;
+    cur = (cur + d + shown.length) % shown.length;
+    Array.prototype.forEach.call(sList.children, function (li, i) {
+      var on = i === cur;
+      li.classList.toggle('cur', on);
+      li.setAttribute('aria-selected', on ? 'true' : 'false');
+      if (on) li.scrollIntoView({ block: 'nearest' });
+    });
+    sInput.setAttribute('aria-activedescendant', 's-opt-' + cur);
+  }
+  function openSearch() {
+    setMenu(false);
+    if (dlg.open) closeProfile();
+    sInput.value = '';
+    render();
+    if (sDlg.showModal) sDlg.showModal(); else sDlg.setAttribute('open', '');
+    sInput.focus();
+  }
+  function closeSearch() { if (sDlg.close) sDlg.close(); else sDlg.removeAttribute('open'); }
+  function activate(i) {
+    var it = shown[i];
+    if (!it) return;
+    closeSearch();
+    window.setTimeout(it.go, 40);
+  }
+  sList.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-i]');
+    if (b) activate(+b.getAttribute('data-i'));
+  });
+  sInput.addEventListener('input', render);
+  sInput.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown') { e.preventDefault(); move(1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); move(-1); }
+    else if (e.key === 'Enter') { e.preventDefault(); activate(cur); }
+  });
+  document.querySelectorAll('[data-open-search]').forEach(function (b) { b.addEventListener('click', openSearch); });
+  document.getElementById('s-close').addEventListener('click', closeSearch);
+  sDlg.addEventListener('click', function (e) { if (e.target === sDlg) closeSearch(); });
+  document.addEventListener('keydown', function (e) {
+    var tag = document.activeElement ? document.activeElement.tagName : '';
+    var typing = tag === 'INPUT' || tag === 'TEXTAREA';
+    if (((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') || (e.key === '/' && !typing && !sDlg.open)) {
+      e.preventDefault();
+      openSearch();
+    }
+  });
+})();
+</script>
+</body>
+</html>
